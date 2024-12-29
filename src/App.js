@@ -83,9 +83,9 @@ const App = () => {
           <p><strong>Mined:</strong> {apiResults.n_mined}</p>
           <p><strong>Epoch:</strong> {apiResults.n_epoch}</p>
           <p><strong>365 Days:</strong> {apiResults.n_365}</p>
-          <p><strong>Sequence:</strong> {apiResults.n_seq}</p>
+          <p><strong>Found:</strong> {apiResults.n_seq}</p> {/* Changed to "Found" */}
           <p><strong>Inscribed:</strong> {apiResults.n_inscribed}</p>
-          <p><strong>Sequence Holders:</strong> {apiResults.n_seq_holders}</p>
+          <p><strong>Found Holders:</strong> {apiResults.n_seq_holders}</p> {/* Changed to "Found Holders" */}
           <p><strong>Total Holders:</strong> {apiResults.n_total_holders}</p>
           <p><strong>Updated At:</strong> {new Date(apiResults.updated_at).toLocaleString()}</p>
         </div>
