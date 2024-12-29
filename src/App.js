@@ -14,6 +14,7 @@ const App = () => {
   const [selectedRarities, setSelectedRarities] = useState([]);
   const [apiResults, setApiResults] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); // Track loading state
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
@@ -34,16 +35,16 @@ const App = () => {
 
     const query = selectedRarities.join(",");
     const apiUrl = `https://api.deezy.io/v1/sat-hunting/circulation?rarity=${query}`;
+    
+    setLoading(true); // Start loading
 
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
-          // Handle specific error messages from the API
           setError(data.message);
           setApiResults(null); // Clear previous results
         } else {
-          // Successful response
           setApiResults(data.data);
           setError(null); // Clear any previous errors
         }
@@ -52,6 +53,9 @@ const App = () => {
         console.error("Error fetching data:", error);
         setError("An error occurred while fetching data.");
         setApiResults(null); // Clear previous results
+      })
+      .finally(() => {
+        setLoading(false); // Stop loading
       });
   };
 
@@ -83,6 +87,15 @@ const App = () => {
           Query
         </button>
       </div>
+
+      {/* Display Spinner While Loading */}
+      {loading && (
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      )}
 
       {/* Display Error Message */}
       {error && (
