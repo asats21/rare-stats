@@ -14,7 +14,12 @@ const App = () => {
   const [selectedRarities, setSelectedRarities] = useState([]);
   const [apiResults, setApiResults] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false); // Track loading state
+  const [loading, setLoading] = useState(false);
+
+  // Format numbers for readability
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat('en-US').format(number);
+  };
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
@@ -36,26 +41,26 @@ const App = () => {
     const query = selectedRarities.join(",");
     const apiUrl = `https://api.deezy.io/v1/sat-hunting/circulation?rarity=${query}`;
     
-    setLoading(true); // Start loading
+    setLoading(true);
 
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
           setError(data.message);
-          setApiResults(null); // Clear previous results
+          setApiResults(null);
         } else {
           setApiResults(data.data);
-          setError(null); // Clear any previous errors
+          setError(null);
         }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setError("An error occurred while fetching data.");
-        setApiResults(null); // Clear previous results
+        setApiResults(null);
       })
       .finally(() => {
-        setLoading(false); // Stop loading
+        setLoading(false);
       });
   };
 
@@ -88,7 +93,6 @@ const App = () => {
         </button>
       </div>
 
-      {/* Display Spinner While Loading */}
       {loading && (
         <div className="text-center">
           <div className="spinner-border text-primary" role="status">
@@ -97,26 +101,24 @@ const App = () => {
         </div>
       )}
 
-      {/* Display Error Message */}
       {error && (
         <div className="alert alert-danger">
           <strong>Error:</strong> {error}
         </div>
       )}
 
-      {/* Display API Response */}
       {apiResults && (
         <div className="mt-4">
           <h2 className="mb-4">Results</h2>
           <div className="list-group">
-            <p className="list-group-item"><strong>Total:</strong> {apiResults.n_total}</p>
-            <p className="list-group-item"><strong>Mined:</strong> {apiResults.n_mined}</p>
-            <p className="list-group-item"><strong>Epoch:</strong> {apiResults.n_epoch}</p>
-            <p className="list-group-item"><strong>365 Days:</strong> {apiResults.n_365}</p>
-            <p className="list-group-item"><strong>Found:</strong> {apiResults.n_seq}</p> {/* Changed to "Found" */}
-            <p className="list-group-item"><strong>Inscribed:</strong> {apiResults.n_inscribed}</p>
-            <p className="list-group-item"><strong>Found Holders:</strong> {apiResults.n_seq_holders}</p> {/* Changed to "Found Holders" */}
-            <p className="list-group-item"><strong>Total Holders:</strong> {apiResults.n_total_holders}</p>
+            <p className="list-group-item"><strong>Total:</strong> {formatNumber(apiResults.n_total)}</p>
+            <p className="list-group-item"><strong>Mined:</strong> {formatNumber(apiResults.n_mined)}</p>
+            <p className="list-group-item"><strong>Epoch:</strong> {formatNumber(apiResults.n_epoch)}</p>
+            <p className="list-group-item"><strong>365 Days:</strong> {formatNumber(apiResults.n_365)}</p>
+            <p className="list-group-item"><strong>Found:</strong> {formatNumber(apiResults.n_seq)}</p>
+            <p className="list-group-item"><strong>Inscribed:</strong> {formatNumber(apiResults.n_inscribed)}</p>
+            <p className="list-group-item"><strong>Found Holders:</strong> {formatNumber(apiResults.n_seq_holders)}</p>
+            <p className="list-group-item"><strong>Total Holders:</strong> {formatNumber(apiResults.n_total_holders)}</p>
             <p className="list-group-item"><strong>Updated At:</strong> {new Date(apiResults.updated_at).toLocaleString()}</p>
           </div>
         </div>
