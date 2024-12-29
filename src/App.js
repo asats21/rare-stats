@@ -148,9 +148,9 @@ const App = () => {
           <p>The <strong>Sat score</strong> is a unique metric (created by AI) that gives you a numerical representation of the relative position and significance of a given set of data. It is calculated using three factors from the data:</p>
           <ul>
             <li><strong>Smax</strong> - The total number of sats.</li>
-            <li><strong>S (n_total)</strong> - The total number of items in the dataset.</li>
-            <li><strong>A (n_365)</strong> - The number of items over the past 365 days.</li>
-            <li><strong>F (n_seq)</strong> - The number of items that are part of a specific sequence.</li>
+            <li><strong>S (n_total)</strong> - The total number of selected sats.</li>
+            <li><strong>A (n_365)</strong> - The number of sats active over the past 365 days.</li>
+            <li><strong>F (n_seq)</strong> - The number of sats that are found.</li>
           </ul>
           <p><strong>Why is it useful?</strong></p>
           <p>The Sat score helps users quickly gauge the rarity and significance of specific data points without having to manually interpret large sets of numbers. By looking at the Sat score, you can get a clearer sense of how valuable or noteworthy an item might be, especially when comparing multiple items.</p>
