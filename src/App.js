@@ -174,15 +174,22 @@ const App = () => {
           <div className="mt-4">
             <h3>Sat Score: {satScore.toFixed(2)}</h3>
             <p><strong>What is the Sat Score?</strong></p>
-            <p>The <strong>Sat score</strong> is a unique metric (created by AI) that gives you a numerical representation of the relative position and significance of a given set of data. It is calculated using three factors from the data:</p>
+            <p>
+              The <strong>Sat score</strong> is a unique metric (developed by AI) that provides a numerical representation of the relative rarity of a given sat.
+              It is calculated using four key data points:
+            </p>
             <ul>
-              <li><strong>Smax</strong> - The total number of sats.</li>
+              <li><strong>Smax</strong> - The total number of sats in existence (2.1 quadrillion).</li>
               <li><strong>S (n_total)</strong> - The total number of selected sats.</li>
               <li><strong>A (n_365)</strong> - The number of sats active over the past 365 days.</li>
               <li><strong>F (n_seq)</strong> - The number of sats that are found.</li>
             </ul>
+            <p>Note that the Sat score is logarithmic, meaning the resulting scores cannot be directly compared. For example, a score of 800 is not twice as rare as 400; it is significantly rarer, but the relationship is not linear.</p>
+            <p>
+              Additionally, creating your own scores based on different factors or data points that are important to you is encouraged. Custom scores can provide a more tailored understanding of rarity in your specific context.
+            </p>
             <p><strong>Why is it useful?</strong></p>
-            <p>The Sat score helps users quickly gauge the rarity and significance of specific data points without having to manually interpret large sets of numbers. By looking at the Sat score, you can get a clearer sense of how valuable or noteworthy an item might be, especially when comparing multiple items.</p>
+            <p>The Sat score helps users quickly gauge the rarity and significance of specific sat without having to manually interpret large sets of numbers. By looking at the Sat score, you can get a clearer sense of how valuable or noteworthy an item might be, especially when comparing multiple items.</p>
             
             <p><strong>Formula:</strong></p>
             <div style={{ fontSize: '1.2rem', fontFamily: 'Courier, monospace', lineHeight: '1.6' }}>
@@ -213,7 +220,7 @@ const App = () => {
 
       {/* Legal Disclaimer */}
       <footer className="mt-5 text-center text-muted">
-        <p><small><strong>Disclaimer:</strong> This page uses data provided by the API at <a href="https://api.deezy.io" target="_blank" rel="noopener noreferrer">https://api.deezy.io</a>. The data is provided "as is," and the creator of this page does not profit from its usage. <strong>It is not financial advice. Use the data at your own risk.</strong></small></p>
+        <p><small><strong>Disclaimer:</strong> This page uses data provided by the API at <a href="https://api.deezy.io" target="_blank" rel="noopener noreferrer">https://api.deezy.io</a>. The data is provided "as is," and the creator of this page does not profit from its use. <strong>This is not financial advice. Use the data at your own risk.</strong></small></p>
       </footer>
     </div>
   );
