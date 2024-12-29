@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rarities = [
   "2009", "uncommon", "rare", "epic", "black_uncommon", "black_rare",
@@ -55,39 +56,56 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Select Rarities</h1>
-      <form>
-        {rarities.map((rarity) => (
-          <div key={rarity}>
-            <input
-              type="checkbox"
-              id={rarity}
-              value={rarity}
-              onChange={handleCheckboxChange}
-            />
-            <label htmlFor={rarity}>{rarity}</label>
-          </div>
-        ))}
-      </form>
-      <button onClick={handleQueryClick}>Query</button>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Select Rarities</h1>
+      <div className="row mb-3">
+        <div className="col-12">
+          <form>
+            {rarities.map((rarity) => (
+              <div key={rarity} className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id={rarity}
+                  value={rarity}
+                  onChange={handleCheckboxChange}
+                />
+                <label className="form-check-label" htmlFor={rarity}>
+                  {rarity}
+                </label>
+              </div>
+            ))}
+          </form>
+        </div>
+      </div>
+      <div className="text-center mb-4">
+        <button className="btn btn-primary" onClick={handleQueryClick}>
+          Query
+        </button>
+      </div>
 
       {/* Display Error Message */}
-      {error && <div style={{ color: "red" }}><strong>Error:</strong> {error}</div>}
+      {error && (
+        <div className="alert alert-danger">
+          <strong>Error:</strong> {error}
+        </div>
+      )}
 
       {/* Display API Response */}
       {apiResults && (
-        <div>
-          <h2>Results</h2>
-          <p><strong>Total:</strong> {apiResults.n_total}</p>
-          <p><strong>Mined:</strong> {apiResults.n_mined}</p>
-          <p><strong>Epoch:</strong> {apiResults.n_epoch}</p>
-          <p><strong>365 Days:</strong> {apiResults.n_365}</p>
-          <p><strong>Found:</strong> {apiResults.n_seq}</p> {/* Changed to "Found" */}
-          <p><strong>Inscribed:</strong> {apiResults.n_inscribed}</p>
-          <p><strong>Found Holders:</strong> {apiResults.n_seq_holders}</p> {/* Changed to "Found Holders" */}
-          <p><strong>Total Holders:</strong> {apiResults.n_total_holders}</p>
-          <p><strong>Updated At:</strong> {new Date(apiResults.updated_at).toLocaleString()}</p>
+        <div className="mt-4">
+          <h2 className="mb-4">Results</h2>
+          <div className="list-group">
+            <p className="list-group-item"><strong>Total:</strong> {apiResults.n_total}</p>
+            <p className="list-group-item"><strong>Mined:</strong> {apiResults.n_mined}</p>
+            <p className="list-group-item"><strong>Epoch:</strong> {apiResults.n_epoch}</p>
+            <p className="list-group-item"><strong>365 Days:</strong> {apiResults.n_365}</p>
+            <p className="list-group-item"><strong>Found:</strong> {apiResults.n_seq}</p> {/* Changed to "Found" */}
+            <p className="list-group-item"><strong>Inscribed:</strong> {apiResults.n_inscribed}</p>
+            <p className="list-group-item"><strong>Found Holders:</strong> {apiResults.n_seq_holders}</p> {/* Changed to "Found Holders" */}
+            <p className="list-group-item"><strong>Total Holders:</strong> {apiResults.n_total_holders}</p>
+            <p className="list-group-item"><strong>Updated At:</strong> {new Date(apiResults.updated_at).toLocaleString()}</p>
+          </div>
         </div>
       )}
     </div>
