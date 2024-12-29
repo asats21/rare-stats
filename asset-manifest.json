@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/rare-stats/static/css/main.435d5fe5.chunk.css",
+    "main.js": "/rare-stats/static/js/main.e61b6f52.chunk.js",
+    "main.js.map": "/rare-stats/static/js/main.e61b6f52.chunk.js.map",
+    "runtime-main.js": "/rare-stats/static/js/runtime-main.d3229c39.js",
+    "runtime-main.js.map": "/rare-stats/static/js/runtime-main.d3229c39.js.map",
+    "static/js/2.e5e77c18.chunk.js": "/rare-stats/static/js/2.e5e77c18.chunk.js",
+    "static/js/2.e5e77c18.chunk.js.map": "/rare-stats/static/js/2.e5e77c18.chunk.js.map",
+    "static/js/3.7ab2aa13.chunk.js": "/rare-stats/static/js/3.7ab2aa13.chunk.js",
+    "static/js/3.7ab2aa13.chunk.js.map": "/rare-stats/static/js/3.7ab2aa13.chunk.js.map",
+    "index.html": "/rare-stats/index.html",
+    "precache-manifest.a46a4238a2f0254e6e4684f613cafa7d.js": "/rare-stats/precache-manifest.a46a4238a2f0254e6e4684f613cafa7d.js",
+    "service-worker.js": "/rare-stats/service-worker.js",
+    "static/css/main.435d5fe5.chunk.css.map": "/rare-stats/static/css/main.435d5fe5.chunk.css.map",
+    "static/js/2.e5e77c18.chunk.js.LICENSE.txt": "/rare-stats/static/js/2.e5e77c18.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/rare-stats/static/media/logo.06e73328.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d3229c39.js",
+    "static/js/2.e5e77c18.chunk.js",
+    "static/css/main.435d5fe5.chunk.css",
+    "static/js/main.e61b6f52.chunk.js"
+  ]
+}
