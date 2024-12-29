@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const rarities = [
-  "2009", "uncommon", "rare", "epic", "black_uncommon", "black_rare",
-  "black_epic", "palindrome", "jan2009", "vintage", "nakamoto", "pizza", 
-  "jpeg", "hitman", "silkroad", "alpha", "omega", "1_digit", "2_digits", 
-  "3_digits", "perfect_palinception", "uniform_palinception", "rodarmor", 
-  "450x", "block_9", "block_78", "block_286", "block_666", "fibonacci", 
-  "sequence_palindrome", "legacy", "paliblock"
-];
+const rarities = {
+  RRI: ["uncommon", "rare", "epic"],
+  Black: ["black_uncommon", "black_rare", "black_epic"],
+  Historical: ["450x", "block_9", "jan2009", "2009", "vintage", "block_78", "block_286", "block_666", "nakamoto"],
+  Type: ["palindrome", "alpha", "omega"],
+  Events: ["pizza", "jpeg", "hitman", "silkroad"],
+  Palindrome: ["1_digit", "2_digits", "3_digits", "perfect_palinception", "uniform_palinception", "sequence_palindrome"],
+  Other: ["paliblock", "rodarmor", "fibonacci", "legacy"],
+};
 
 const App = () => {
   const [selectedRarities, setSelectedRarities] = useState([]);
@@ -36,13 +37,11 @@ const App = () => {
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
-    setSelectedRarities((prevState) => {
-      if (prevState.includes(value)) {
-        return prevState.filter((item) => item !== value);
-      } else {
-        return [...prevState, value];
-      }
-    });
+    setSelectedRarities((prevState) =>
+      prevState.includes(value)
+        ? prevState.filter((item) => item !== value)
+        : [...prevState, value]
+    );
   };
 
   const handleQueryClick = () => {
@@ -53,7 +52,7 @@ const App = () => {
 
     const query = selectedRarities.join(",");
     const apiUrl = `https://api.deezy.io/v1/sat-hunting/circulation?rarity=${query}`;
-    
+
     setLoading(true);
 
     fetch(apiUrl)
@@ -77,34 +76,61 @@ const App = () => {
       });
   };
 
+  const renderCategory = (category, items, borderColor) => (
+    <div
+      style={{
+        border: `2px solid ${borderColor}`,
+        borderRadius: "10px",
+        margin: "5px",
+        padding: "10px",
+        flex: "1 1 30%", // Adjust for a compact layout
+        minWidth: "200px",
+      }}
+    >
+      <h5 style={{ color: borderColor, marginBottom: "5px" }}>{category}</h5>
+      <div className="d-flex flex-wrap">
+        {items.map((item) => (
+          <div key={item} style={{ marginRight: "10px", marginBottom: "5px" }}>
+            <input
+              type="checkbox"
+              id={item}
+              value={item}
+              checked={selectedRarities.includes(item)}
+              onChange={handleCheckboxChange}
+            />
+            <label htmlFor={item} style={{ marginLeft: "5px" }}>
+              {item}
+            </label>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   // Calculate score only if apiResults is available
   const satScore = apiResults ? calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq) : null;
 
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Select Rarities</h1>
-      <div className="row mb-3">
-        <div className="col-12">
-          <form>
-            {rarities.map((rarity) => (
-              <div key={rarity} className="form-check form-check-inline">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id={rarity}
-                  value={rarity}
-                  onChange={handleCheckboxChange}
-                />
-                <label className="form-check-label" htmlFor={rarity}>
-                  {rarity}
-                </label>
-              </div>
-            ))}
-          </form>
-        </div>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "5px", // Minimized space between categories
+        }}
+      >
+      {renderCategory("RRI", rarities.RRI, "#EF476F")}          {/* Coral Red */}
+      {renderCategory("Black", rarities.Black, "#2A2D34")}      {/* Charcoal Gray */}
+      {renderCategory("Other types", rarities.Type, "#FFD166")}        {/* Goldenrod Yellow */}
+      {renderCategory("Historical", rarities.Historical, "#118AB2")} {/* Azure Blue */}
+      {renderCategory("Events", rarities.Events, "#06D6A0")}    {/* Mint Green */}
+      {renderCategory("Palindrome", rarities.Palindrome, "#8ECAE6")} {/* Sky Blue */}
+      {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
       </div>
+
       <div className="text-center mb-4">
-        <button className="btn btn-primary" onClick={handleQueryClick}>
+        <button className="btn btn-primary mt-3" onClick={handleQueryClick}>
           Query
         </button>
       </div>
@@ -142,50 +168,53 @@ const App = () => {
 
       {/* Display Sat Score if available */}
       {satScore !== null && (
-        <div className="mt-4">
-          <h3>Sat Score: {satScore.toFixed(2)}</h3>
-          <p><strong>What is the Sat Score?</strong></p>
-          <p>The <strong>Sat score</strong> is a unique metric (created by AI) that gives you a numerical representation of the relative position and significance of a given set of data. It is calculated using three factors from the data:</p>
-          <ul>
-            <li><strong>Smax</strong> - The total number of sats.</li>
-            <li><strong>S (n_total)</strong> - The total number of selected sats.</li>
-            <li><strong>A (n_365)</strong> - The number of sats active over the past 365 days.</li>
-            <li><strong>F (n_seq)</strong> - The number of sats that are found.</li>
-          </ul>
-          <p><strong>Why is it useful?</strong></p>
-          <p>The Sat score helps users quickly gauge the rarity and significance of specific data points without having to manually interpret large sets of numbers. By looking at the Sat score, you can get a clearer sense of how valuable or noteworthy an item might be, especially when comparing multiple items.</p>
-          
-          <p><strong>Formula:</strong></p>
-          <div style={{ fontSize: '1.2rem', fontFamily: 'Courier, monospace', lineHeight: '1.6' }}>
-            1000 × ( 1 - 
-            <span style={{ display: 'inline-flex', alignItems: 'center' }}>
-              <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
-                <div>log(S)</div>
-                <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S<sub>max</sub>)</div>
-              </span>
-              ×
-              <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
-                <div>log(A)</div>
-                <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S)</div>
-              </span>
-              ×
-              <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
-                <div>log(F)</div>
-                <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S)</div>
-              </span>
-            </span>
-            )
-          </div>
+        <>
+          <hr />
 
-          <p><strong>Disclaimer:</strong> Please note that the Sat score is an <strong>arbitrary</strong> calculation based on the dataset, and its value can change as the data updates or as new factors are added to the formula. It is not a definitive or static measure of value but rather a tool to assist in understanding the relative importance of items within the dataset.</p>
-        </div>
+          <div className="mt-4">
+            <h3>Sat Score: {satScore.toFixed(2)}</h3>
+            <p><strong>What is the Sat Score?</strong></p>
+            <p>The <strong>Sat score</strong> is a unique metric (created by AI) that gives you a numerical representation of the relative position and significance of a given set of data. It is calculated using three factors from the data:</p>
+            <ul>
+              <li><strong>Smax</strong> - The total number of sats.</li>
+              <li><strong>S (n_total)</strong> - The total number of selected sats.</li>
+              <li><strong>A (n_365)</strong> - The number of sats active over the past 365 days.</li>
+              <li><strong>F (n_seq)</strong> - The number of sats that are found.</li>
+            </ul>
+            <p><strong>Why is it useful?</strong></p>
+            <p>The Sat score helps users quickly gauge the rarity and significance of specific data points without having to manually interpret large sets of numbers. By looking at the Sat score, you can get a clearer sense of how valuable or noteworthy an item might be, especially when comparing multiple items.</p>
+            
+            <p><strong>Formula:</strong></p>
+            <div style={{ fontSize: '1.2rem', fontFamily: 'Courier, monospace', lineHeight: '1.6' }}>
+              1000 × ( 1 - 
+              <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
+                  <div>log(S)</div>
+                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S<sub>max</sub>)</div>
+                </span>
+                ×
+                <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
+                  <div>log(A)</div>
+                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S)</div>
+                </span>
+                ×
+                <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
+                  <div>log(F)</div>
+                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S)</div>
+                </span>
+              </span>
+              )
+            </div>
+
+            <p><strong>Disclaimer:</strong> Please note that the Sat score is an <strong>arbitrary</strong> calculation based on the dataset, and its value can change as the data updates or as new factors are added to the formula. It is not a definitive or static measure of value but rather a tool to assist in understanding the relative importance of items within the dataset.</p>
+          </div>
+        </>
       )}
 
       {/* Legal Disclaimer */}
       <footer className="mt-5 text-center text-muted">
         <p><small><strong>Disclaimer:</strong> This page uses data provided by the API at <a href="https://api.deezy.io" target="_blank" rel="noopener noreferrer">https://api.deezy.io</a>. The data is provided "as is," and the creator of this page does not profit from its usage. <strong>It is not financial advice. Use the data at your own risk.</strong></small></p>
       </footer>
-      
     </div>
   );
 };
