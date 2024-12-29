@@ -7,7 +7,7 @@ const rarities = [
   "jpeg", "hitman", "silkroad", "alpha", "omega", "1_digit", "2_digits", 
   "3_digits", "perfect_palinception", "uniform_palinception", "rodarmor", 
   "450x", "block_9", "block_78", "block_286", "block_666", "fibonacci", 
-  "sequence_palindrome", "legacy"
+  "sequence_palindrome", "legacy", "paliblock"
 ];
 
 const App = () => {
