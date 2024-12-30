@@ -320,6 +320,14 @@ const App = () => {
           <thead>
             <tr>
               <th>Query</th>
+              <th>Supply</th>
+              <th>Active 365</th>
+              <th>Found</th>
+              <th>H(Found)</th>
+              <th>H(Total)</th>
+              <th>S<sub>ci</sub></th>
+              <th>A<sub>ci</sub></th>
+              <th>F<sub>ci</sub></th>
               <th>Sat Score</th>
             </tr>
           </thead>
@@ -327,6 +335,15 @@ const App = () => {
             {sortedQueries.map((queryData, index) => (
               <tr key={index}>
                 <td>{queryData.query.join(", ")}</td>
+
+                <td>{formatNumber(queryData.result.n_total)}</td>
+                <td>{formatNumber(queryData.result.n_365)}</td>
+                <td>{formatNumber(queryData.result.n_seq)}</td>
+                <td>{formatNumber(queryData.result.n_seq_holders)}</td>
+                <td>{formatNumber(queryData.result.n_total_holders)}</td>
+                <td>{queryData.satScore.Sci.toFixed(2)}</td>
+                <td>{queryData.satScore.Aci.toFixed(2)}</td>
+                <td>{queryData.satScore.Fci.toFixed(2)}</td>
                 <td>{queryData.satScore.score.toFixed(2)}</td>
               </tr>
             ))}
