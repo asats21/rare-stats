@@ -32,9 +32,17 @@ const App = () => {
     const logF = Math.log(F);
     const logA = Math.log(A);
 
+    const Sc = (logS / logS_max);
+    const Ac = (logA / logS);
+    const Fc = (logF / logS);
+
+    const Sci = 1 - (logS / logS_max);
+    const Aci = 1 - (logA / logS);
+    const Fci = 1 - (logF / logS);
+
     // Calculate score using the formula
-    const score = 1000 * (1 - (logS / logS_max) * (logA / logS) * (logF / logS));
-    return { score, logS, logS_max, logA, logF };
+    const score = 1000 * (1 - Sc * Ac * Fc);
+    return { score, Sc, Ac, Fc, Sci, Aci, Fci };
   };
 
   const handleCheckboxChange = (event) => {
@@ -168,50 +176,60 @@ const App = () => {
       {/* Display Sat Score if available */}
       {apiResults && (
         <>
+
           <hr />
 
           <div className="mt-4">
-            <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).score.toFixed(2)}</h3>
-
-            {/* Display Gauges */}
-            <div className="d-flex justify-content-around mt-4">
-              {/* Gauge for logS / logS_max */}
-              <div style={{ width: 100 }}>
-                <CircularProgressbar
-                  value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logS / calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logS_max * 100}
-                  text={`S`}
-                  styles={buildStyles({
-                    textColor: "#EF476F",
-                    pathColor: "#EF476F",
-                    trailColor: "#d6d6d6",
-                  })}
-                />
+            {/* Sat Score and Gauges on the Same Line */}
+            <div className="d-flex align-items-center justify-content-around mt-4">
+              {/* Sat Score */}
+              <div>
+                <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).score.toFixed(2)}</h3>
               </div>
 
-              {/* Gauge for logA / logS */}
-              <div style={{ width: 100 }}>
-                <CircularProgressbar
-                  value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logA / calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logS * 100}
-                  text={`A`}
-                  styles={buildStyles({
-                    textColor: "#06D6A0",
-                    pathColor: "#06D6A0",
-                    trailColor: "#d6d6d6",
-                  })}
-                />
-              </div>
+              {/* Gauges */}
+              <div className="d-flex">
+                {/* Gauge for logS / logS_max */}
+                <div style={{ margin: "0 10px", textAlign: "center" }}>
+                  <CircularProgressbar
+                    value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Sci * 100}
+                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Sci * 100).toFixed(0)} pt.`}
+                    styles={buildStyles({
+                      textColor: "#EF476F",
+                      pathColor: "#EF476F",
+                      trailColor: "#d6d6d6",
+                    })}
+                  />
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>S - Supply</p>
+                </div>
 
-              {/* Gauge for logF / logS */}
-              <div style={{ width: 100 }}>
-                <CircularProgressbar
-                  value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logF / calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logS * 100}
-                  text={`F`}
-                  styles={buildStyles({
-                    textColor: "#118AB2",
-                    pathColor: "#118AB2",
-                    trailColor: "#d6d6d6",
-                  })}
-                />
+                {/* Gauge for logA / logS */}
+                <div style={{ margin: "0 10px", textAlign: "center" }}>
+                  <CircularProgressbar
+                    value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Aci * 100}
+                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Aci * 100).toFixed(0)} pt.`}
+                    styles={buildStyles({
+                      textColor: "#06D6A0",
+                      pathColor: "#06D6A0",
+                      trailColor: "#d6d6d6",
+                    })}
+                  />
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>A - Active 365</p>
+                </div>
+
+                {/* Gauge for logF / logS */}
+                <div style={{ margin: "0 10px", textAlign: "center" }}>
+                  <CircularProgressbar
+                    value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Fci * 100}
+                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Fci * 100).toFixed(0)} pt.`}
+                    styles={buildStyles({
+                      textColor: "#118AB2",
+                      pathColor: "#118AB2",
+                      trailColor: "#d6d6d6",
+                    })}
+                  />
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>F - Found</p>
+                </div>
               </div>
             </div>
 
