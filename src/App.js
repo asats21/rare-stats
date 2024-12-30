@@ -74,6 +74,26 @@ const App = () => {
         } else {
           setApiResults(data.data);
           setError(null);
+
+          // Save the query and results in localStorage
+          const satScore = calculateSatScore(data.data.n_total, data.data.n_365, data.data.n_seq);
+          if(satScore.score) {
+            const queryData = {
+              query: selectedRarities,
+              result: data.data,
+              satScore: satScore,
+            };
+
+            // Get existing queries from localStorage
+            const savedQueries = JSON.parse(localStorage.getItem('queries')) || [];
+
+            // Prevent duplicates by checking if the query already exists
+            const isDuplicate = savedQueries.some(item => item.query.join(",") === selectedRarities.join(","));
+            if (!isDuplicate) {
+              savedQueries.push(queryData);
+              localStorage.setItem('queries', JSON.stringify(savedQueries));
+            }
+          }
         }
       })
       .catch((error) => {
@@ -116,6 +136,12 @@ const App = () => {
       </div>
     </div>
   );
+
+  // Get saved queries from localStorage
+  const savedQueries = JSON.parse(localStorage.getItem('queries')) || [];
+
+  // Sort the saved queries by Sat score
+  const sortedQueries = savedQueries.sort((a, b) => b.satScore.score - a.satScore.score);
 
   return (
     <div className="container mt-5">
@@ -277,6 +303,27 @@ const App = () => {
           </div>
         </>
       )}
+
+      {/* Query History Table */}
+      <div className="mt-4">
+        <h3>Query History</h3>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Query</th>
+              <th>Sat Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedQueries.map((queryData, index) => (
+              <tr key={index}>
+                <td>{queryData.query.join(", ")}</td>
+                <td>{queryData.satScore.score.toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Legal Disclaimer */}
       <footer className="mt-5 text-center text-muted">
