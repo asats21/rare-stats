@@ -25,16 +25,17 @@ const App = () => {
   };
 
   // Calculate Sat score
-  const calculateSatScore = (S, A, F) => {
+  const calculateSatScore = (S, M, A, F) => {
     const S_max = 2.1 * Math.pow(10, 15); // 2.1 quadrillion
     const logS_max = Math.log(S_max);
     const logS = Math.log(S);
+    const logM = Math.log(M);
     const logF = Math.log(F);
     const logA = Math.log(A);
 
     const Sc = (logS / logS_max);
-    const Ac = (logA / logS);
-    const Fc = (logF / logS);
+    const Ac = (logA / logM);
+    const Fc = (logF / logM);
 
     const Sci = 1 - Sc;
     const Aci = 1 - Ac;
@@ -82,7 +83,7 @@ const App = () => {
           setError(null);
 
           // Save the query and results in localStorage
-          const satScore = calculateSatScore(data.data.n_total, data.data.n_365, data.data.n_seq);
+          const satScore = calculateSatScore(data.data.n_total, data.data.n_mined, data.data.n_365, data.data.n_seq);
           if(satScore.score) {
             const queryData = {
               query: selectedRarities,
@@ -219,7 +220,7 @@ const App = () => {
             <div className="d-flex align-items-center justify-content-around mt-4">
               {/* Sat Score */}
               <div>
-                <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).score.toFixed(2)}</h3>
+                <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).score.toFixed(2)}</h3>
               </div>
 
               {/* Gauges */}
@@ -227,8 +228,8 @@ const App = () => {
                 {/* Gauge for logS / logS_max */}
                 <div style={{ margin: "0 10px", textAlign: "center" }}>
                   <CircularProgressbar
-                    value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Sci * 100}
-                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Sci * 100).toFixed(0)} pt.`}
+                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Sci * 100}
+                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Sci * 100).toFixed(0)} pt.`}
                     styles={buildStyles({
                       textColor: "#EF476F",
                       pathColor: "#EF476F",
@@ -241,29 +242,29 @@ const App = () => {
                 {/* Gauge for logA / logS */}
                 <div style={{ margin: "0 10px", textAlign: "center" }}>
                   <CircularProgressbar
-                    value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Aci * 100}
-                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Aci * 100).toFixed(0)} pt.`}
+                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Aci * 100}
+                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Aci * 100).toFixed(0)} pt.`}
                     styles={buildStyles({
                       textColor: "#06D6A0",
                       pathColor: "#06D6A0",
                       trailColor: "#d6d6d6",
                     })}
                   />
-                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Active 365 ({((apiResults.n_365/apiResults.n_total)*100).toFixed(2)}%)</p>
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Active 365 ({((apiResults.n_365/apiResults.n_mined)*100).toFixed(2)}%)</p>
                 </div>
 
                 {/* Gauge for logF / logS */}
                 <div style={{ margin: "0 10px", textAlign: "center" }}>
                   <CircularProgressbar
-                    value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Fci * 100}
-                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).Fci * 100).toFixed(0)} pt.`}
+                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Fci * 100}
+                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Fci * 100).toFixed(0)} pt.`}
                     styles={buildStyles({
                       textColor: "#118AB2",
                       pathColor: "#118AB2",
                       trailColor: "#d6d6d6",
                     })}
                   />
-                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Found ({((apiResults.n_seq/apiResults.n_total)*100).toFixed(2)}%)</p>
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Found ({((apiResults.n_seq/apiResults.n_mined)*100).toFixed(2)}%)</p>
                 </div>
               </div>
             </div>
@@ -271,11 +272,12 @@ const App = () => {
             <p><strong>What is the Sat Score?</strong></p>
             <p>
               The <strong>Sat score</strong> is a unique metric (developed by AI) that provides a numerical representation of the relative rarity of a given sat.
-              It is calculated using four key data points:
+              It is calculated using five key data points:
             </p>
             <ul>
               <li><strong>Smax</strong> - The total number of sats in existence (2.1 quadrillion).</li>
               <li><strong>S (n_total)</strong> - The total number of selected sats.</li>
+              <li><strong>M (n_mined)</strong> - The number of mined sats.</li>
               <li><strong>A (n_365)</strong> - The number of sats active over the past 365 days.</li>
               <li><strong>F (n_seq)</strong> - The number of sats that are found.</li>
             </ul>
@@ -297,12 +299,12 @@ const App = () => {
                 ×
                 <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
                   <div>log(A)</div>
-                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S)</div>
+                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(M)</div>
                 </span>
                 ×
                 <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
                   <div>log(F)</div>
-                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S)</div>
+                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(M)</div>
                 </span>
               </span>
               )
@@ -321,6 +323,7 @@ const App = () => {
             <tr>
               <th>Query</th>
               <th>Supply</th>
+              <th>Mined</th>
               <th>Active 365</th>
               <th>Found</th>
               <th>H(Found)</th>
@@ -337,6 +340,7 @@ const App = () => {
                 <td>{queryData.query.join(", ")}</td>
 
                 <td>{formatNumber(queryData.result.n_total)}</td>
+                <td>{formatNumber(queryData.result.n_mined)}</td>
                 <td>{formatNumber(queryData.result.n_365)}</td>
                 <td>{formatNumber(queryData.result.n_seq)}</td>
                 <td>{formatNumber(queryData.result.n_seq_holders)}</td>
