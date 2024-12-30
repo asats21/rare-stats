@@ -226,7 +226,7 @@ const App = () => {
                       trailColor: "#d6d6d6",
                     })}
                   />
-                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>S - Supply</p>
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Supply</p>
                 </div>
 
                 {/* Gauge for logA / logS */}
@@ -240,7 +240,7 @@ const App = () => {
                       trailColor: "#d6d6d6",
                     })}
                   />
-                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>A - Active 365</p>
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Active 365 ({((apiResults.n_365/apiResults.n_total)*100).toFixed(2)}%)</p>
                 </div>
 
                 {/* Gauge for logF / logS */}
@@ -254,7 +254,7 @@ const App = () => {
                       trailColor: "#d6d6d6",
                     })}
                   />
-                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>F - Found</p>
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Found ({((apiResults.n_seq/apiResults.n_total)*100).toFixed(2)}%)</p>
                 </div>
               </div>
             </div>
