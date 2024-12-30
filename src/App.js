@@ -36,9 +36,9 @@ const App = () => {
     const Ac = (logA / logS);
     const Fc = (logF / logS);
 
-    const Sci = 1 - (logS / logS_max);
-    const Aci = 1 - (logA / logS);
-    const Fci = 1 - (logF / logS);
+    const Sci = 1 - Sc;
+    const Aci = 1 - Ac;
+    const Fci = 1 - Fc;
 
     // Calculate score using the formula
     const score = 1000 * (1 - Sc * Ac * Fc);
