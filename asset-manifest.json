@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/rare-stats/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/rare-stats/static/js/main.ddc418ad.chunk.js",
-    "main.js.map": "/rare-stats/static/js/main.ddc418ad.chunk.js.map",
-    "runtime-main.js": "/rare-stats/static/js/runtime-main.a6f1cb6b.js",
-    "runtime-main.js.map": "/rare-stats/static/js/runtime-main.a6f1cb6b.js.map",
-    "static/css/2.dbb74888.chunk.css": "/rare-stats/static/css/2.dbb74888.chunk.css",
-    "static/js/2.f63dd3dd.chunk.js": "/rare-stats/static/js/2.f63dd3dd.chunk.js",
-    "static/js/2.f63dd3dd.chunk.js.map": "/rare-stats/static/js/2.f63dd3dd.chunk.js.map",
-    "static/js/3.e5002992.chunk.js": "/rare-stats/static/js/3.e5002992.chunk.js",
-    "static/js/3.e5002992.chunk.js.map": "/rare-stats/static/js/3.e5002992.chunk.js.map",
+    "main.js": "/rare-stats/static/js/main.6e4b4cbf.chunk.js",
+    "main.js.map": "/rare-stats/static/js/main.6e4b4cbf.chunk.js.map",
+    "runtime-main.js": "/rare-stats/static/js/runtime-main.96acf67d.js",
+    "runtime-main.js.map": "/rare-stats/static/js/runtime-main.96acf67d.js.map",
+    "static/css/2.391e0e94.chunk.css": "/rare-stats/static/css/2.391e0e94.chunk.css",
+    "static/js/2.8a0a6b18.chunk.js": "/rare-stats/static/js/2.8a0a6b18.chunk.js",
+    "static/js/2.8a0a6b18.chunk.js.map": "/rare-stats/static/js/2.8a0a6b18.chunk.js.map",
+    "static/js/3.74fa6f33.chunk.js": "/rare-stats/static/js/3.74fa6f33.chunk.js",
+    "static/js/3.74fa6f33.chunk.js.map": "/rare-stats/static/js/3.74fa6f33.chunk.js.map",
     "index.html": "/rare-stats/index.html",
-    "precache-manifest.df1d607207e536e5d2e165f0569b6252.js": "/rare-stats/precache-manifest.df1d607207e536e5d2e165f0569b6252.js",
+    "precache-manifest.4c0f53d57bf6d6631ec284a5f9c249a9.js": "/rare-stats/precache-manifest.4c0f53d57bf6d6631ec284a5f9c249a9.js",
     "service-worker.js": "/rare-stats/service-worker.js",
-    "static/css/2.dbb74888.chunk.css.map": "/rare-stats/static/css/2.dbb74888.chunk.css.map",
+    "static/css/2.391e0e94.chunk.css.map": "/rare-stats/static/css/2.391e0e94.chunk.css.map",
     "static/css/main.5ecd60fb.chunk.css.map": "/rare-stats/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.f63dd3dd.chunk.js.LICENSE.txt": "/rare-stats/static/js/2.f63dd3dd.chunk.js.LICENSE.txt"
+    "static/js/2.8a0a6b18.chunk.js.LICENSE.txt": "/rare-stats/static/js/2.8a0a6b18.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a6f1cb6b.js",
-    "static/css/2.dbb74888.chunk.css",
-    "static/js/2.f63dd3dd.chunk.js",
+    "static/js/runtime-main.96acf67d.js",
+    "static/css/2.391e0e94.chunk.css",
+    "static/js/2.8a0a6b18.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.ddc418ad.chunk.js"
+    "static/js/main.6e4b4cbf.chunk.js"
   ]
 }
