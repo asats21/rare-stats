@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const rarities = {
   RRI: ["uncommon", "rare", "epic"],
@@ -32,7 +34,7 @@ const App = () => {
 
     // Calculate score using the formula
     const score = 1000 * (1 - (logS / logS_max) * (logA / logS) * (logF / logS));
-    return score;
+    return { score, logS, logS_max, logA, logF };
   };
 
   const handleCheckboxChange = (event) => {
@@ -107,9 +109,6 @@ const App = () => {
     </div>
   );
 
-  // Calculate score only if apiResults is available
-  const satScore = apiResults ? calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq) : null;
-
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Select Rarities</h1>
@@ -120,13 +119,13 @@ const App = () => {
           gap: "5px", // Minimized space between categories
         }}
       >
-      {renderCategory("RRI", rarities.RRI, "#EF476F")}          {/* Coral Red */}
-      {renderCategory("Black", rarities.Black, "#2A2D34")}      {/* Charcoal Gray */}
-      {renderCategory("Other types", rarities.Type, "#FFD166")}        {/* Goldenrod Yellow */}
-      {renderCategory("Historical", rarities.Historical, "#118AB2")} {/* Azure Blue */}
-      {renderCategory("Events", rarities.Events, "#06D6A0")}    {/* Mint Green */}
-      {renderCategory("Palindrome", rarities.Palindrome, "#8ECAE6")} {/* Sky Blue */}
-      {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
+        {renderCategory("RRI", rarities.RRI, "#EF476F")}          {/* Coral Red */}
+        {renderCategory("Black", rarities.Black, "#2A2D34")}      {/* Charcoal Gray */}
+        {renderCategory("Other types", rarities.Type, "#FFD166")}        {/* Goldenrod Yellow */}
+        {renderCategory("Historical", rarities.Historical, "#118AB2")} {/* Azure Blue */}
+        {renderCategory("Events", rarities.Events, "#06D6A0")}    {/* Mint Green */}
+        {renderCategory("Palindrome", rarities.Palindrome, "#8ECAE6")} {/* Sky Blue */}
+        {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
       </div>
 
       <div className="text-center mb-4">
@@ -167,12 +166,55 @@ const App = () => {
       )}
 
       {/* Display Sat Score if available */}
-      {satScore !== null && (
+      {apiResults && (
         <>
           <hr />
 
           <div className="mt-4">
-            <h3>Sat Score: {satScore.toFixed(2)}</h3>
+            <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).score.toFixed(2)}</h3>
+
+            {/* Display Gauges */}
+            <div className="d-flex justify-content-around mt-4">
+              {/* Gauge for logS / logS_max */}
+              <div style={{ width: 100 }}>
+                <CircularProgressbar
+                  value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logS / calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logS_max * 100}
+                  text={`S`}
+                  styles={buildStyles({
+                    textColor: "#EF476F",
+                    pathColor: "#EF476F",
+                    trailColor: "#d6d6d6",
+                  })}
+                />
+              </div>
+
+              {/* Gauge for logA / logS */}
+              <div style={{ width: 100 }}>
+                <CircularProgressbar
+                  value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logA / calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logS * 100}
+                  text={`A`}
+                  styles={buildStyles({
+                    textColor: "#06D6A0",
+                    pathColor: "#06D6A0",
+                    trailColor: "#d6d6d6",
+                  })}
+                />
+              </div>
+
+              {/* Gauge for logF / logS */}
+              <div style={{ width: 100 }}>
+                <CircularProgressbar
+                  value={calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logF / calculateSatScore(apiResults.n_total, apiResults.n_365, apiResults.n_seq).logS * 100}
+                  text={`F`}
+                  styles={buildStyles({
+                    textColor: "#118AB2",
+                    pathColor: "#118AB2",
+                    trailColor: "#d6d6d6",
+                  })}
+                />
+              </div>
+            </div>
+
             <p><strong>What is the Sat Score?</strong></p>
             <p>
               The <strong>Sat score</strong> is a unique metric (developed by AI) that provides a numerical representation of the relative rarity of a given sat.
@@ -190,7 +232,7 @@ const App = () => {
             </p>
             <p><strong>Why is it useful?</strong></p>
             <p>The Sat score helps users quickly gauge the rarity and significance of specific sat without having to manually interpret large sets of numbers. By looking at the Sat score, you can get a clearer sense of how valuable or noteworthy an item might be, especially when comparing multiple items.</p>
-            
+
             <p><strong>Formula:</strong></p>
             <div style={{ fontSize: '1.2rem', fontFamily: 'Courier, monospace', lineHeight: '1.6' }}>
               1000 × ( 1 - 
