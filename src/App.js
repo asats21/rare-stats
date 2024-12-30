@@ -34,12 +34,12 @@ const App = () => {
     const logA = Math.log(A);
 
     const Sc = (logS / logS_max);
-    const Ac = (logA / logM);
-    const Fc = (logF / logM);
+    const Ac = A > 1 ? (logA / logM) : 1;
+    const Fc = F > 0 ? (logF / logM) : 1;
 
     const Sci = 1 - Sc;
-    const Aci = 1 - Ac;
-    const Fci = 1 - Fc;
+    const Aci = Ac < 1 ? 1 - Ac : 1;
+    const Fci = Fc < 1 ? 1 - Fc : 1;
 
     // Calculate score using the formula
     const score = 1000 * (1 - Sc * Ac * Fc);
@@ -84,6 +84,7 @@ const App = () => {
 
           // Save the query and results in localStorage
           const satScore = calculateSatScore(data.data.n_total, data.data.n_mined, data.data.n_365, data.data.n_seq);
+
           if(satScore.score) {
             const queryData = {
               query: selectedRarities,
