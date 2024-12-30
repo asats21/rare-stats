@@ -54,6 +54,12 @@ const App = () => {
     );
   };
 
+  const handleClearClick = () => {
+    setSelectedRarities([]);
+    setApiResults(null);
+    setError(null);
+  };
+
   const handleQueryClick = () => {
     if (selectedRarities.length === 0) {
       setError("Please select at least one rarity.");
@@ -165,6 +171,9 @@ const App = () => {
       <div className="text-center mb-4">
         <button className="btn btn-primary mt-3" onClick={handleQueryClick}>
           Query
+        </button>
+        <button className="btn btn-secondary mt-3 ms-2" onClick={handleClearClick}>
+          Clear
         </button>
       </div>
 
