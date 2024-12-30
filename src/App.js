@@ -43,7 +43,12 @@ const App = () => {
 
     // Calculate score using the formula
     const score = 1000 * (1 - Sc * Ac * Fc);
-    return { score, Sc, Ac, Fc, Sci, Aci, Fci };
+
+    // Apply power law transformation to the score
+    const alpha = 2;
+    const power_transforded_score = Math.pow(score / 1000, alpha) * 1000;
+
+    return { score: power_transforded_score, Sc, Ac, Fc, Sci, Aci, Fci };
   };
 
   const handleCheckboxChange = (event) => {
@@ -85,7 +90,7 @@ const App = () => {
           // Save the query and results in localStorage
           const satScore = calculateSatScore(data.data.n_total, data.data.n_mined, data.data.n_365, data.data.n_seq);
 
-          if(satScore.score) {
+          if(data.data.n_total > 0 && satScore.score) {
             const queryData = {
               query: selectedRarities,
               result: data.data,
