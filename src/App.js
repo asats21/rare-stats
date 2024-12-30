@@ -198,8 +198,8 @@ const App = () => {
           <div className="list-group">
             <p className="list-group-item"><strong>Total:</strong> {formatNumber(apiResults.n_total)}</p>
             <p className="list-group-item"><strong>Mined:</strong> {formatNumber(apiResults.n_mined)}</p>
-            <p className="list-group-item"><strong>Epoch:</strong> {formatNumber(apiResults.n_epoch)}</p>
-            <p className="list-group-item"><strong>365 Days:</strong> {formatNumber(apiResults.n_365)}</p>
+            <p className="list-group-item"><strong>Active Epoch:</strong> {formatNumber(apiResults.n_epoch)}</p>
+            <p className="list-group-item"><strong>Active 365 Days:</strong> {formatNumber(apiResults.n_365)}</p>
             <p className="list-group-item"><strong>Found:</strong> {formatNumber(apiResults.n_seq)}</p>
             <p className="list-group-item"><strong>Inscribed:</strong> {formatNumber(apiResults.n_inscribed)}</p>
             <p className="list-group-item"><strong>Found Holders:</strong> {formatNumber(apiResults.n_seq_holders)}</p>
