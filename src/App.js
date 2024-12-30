@@ -296,7 +296,7 @@ const App = () => {
 
             <p><strong>Formula:</strong></p>
             <div style={{ fontSize: '1.2rem', fontFamily: 'Courier, monospace', lineHeight: '1.6' }}>
-              1000 × ( 1 - 
+              PowerLaw(1000 × ( 1 - 
               <span style={{ display: 'inline-flex', alignItems: 'center' }}>
                 <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
                   <div>log(S)</div>
@@ -313,7 +313,7 @@ const App = () => {
                   <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(M)</div>
                 </span>
               </span>
-              )
+              ))
             </div>
 
             <p><strong>Disclaimer:</strong> Please note that the Sat score is an <strong>arbitrary</strong> calculation based on the dataset, and its value can change as the data updates or as new factors are added to the formula. It is not a definitive or static measure of value but rather a tool to assist in understanding the relative importance of items within the dataset.</p>
