@@ -30,25 +30,24 @@ const App = () => {
     const logS_max = Math.log(S_max);
     const logS = Math.log(S);
     const logM = Math.log(M);
-    const logF = Math.log(F);
-    const logA = Math.log(A);
+
+    const AF_avg = (A + F)/2;
+    const AF_avg_n = AF_avg > 1 ? AF_avg : 1;
 
     const Sc = (logS / logS_max);
-    const Ac = A > 1 ? (logA / logM) : 1;
-    const Fc = F > 0 ? (logF / logM) : 1;
+    const AFc = Math.log(AF_avg_n) / logM;
 
     const Sci = 1 - Sc;
-    const Aci = Ac < 1 ? 1 - Ac : 1;
-    const Fci = Fc < 1 ? 1 - Fc : 1;
+    const AFci = 1 - AFc;
 
     // Calculate score using the formula
-    const score = 1000 * (1 - Sc * Ac * Fc);
+    const score = 1000 * (1 - Sc * AFc);
 
     // Apply power law transformation to the score
-    const alpha = 2;
-    const power_transforded_score = Math.pow(score / 1000, alpha) * 1000;
+    const alpha = 1.5;
+    const power_transformed_score = Math.pow(score / 1000, alpha) * 1000;
 
-    return { score: power_transforded_score, Sc, Ac, Fc, Sci, Aci, Fci };
+    return { score, power_transformed_score, Sc, AFc, Sci, AFci };
   };
 
   const handleCheckboxChange = (event) => {
@@ -245,32 +244,18 @@ const App = () => {
                   <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Supply</p>
                 </div>
 
-                {/* Gauge for logA / logS */}
+                {/* Gauge for AFci */}
                 <div style={{ margin: "0 10px", textAlign: "center" }}>
                   <CircularProgressbar
-                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Aci * 100}
-                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Aci * 100).toFixed(0)} pt.`}
+                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).AFci * 100}
+                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).AFci * 100).toFixed(0)} pt.`}
                     styles={buildStyles({
                       textColor: "#06D6A0",
                       pathColor: "#06D6A0",
                       trailColor: "#d6d6d6",
                     })}
                   />
-                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Active 365 ({((apiResults.n_365/apiResults.n_mined)*100).toFixed(2)}%)</p>
-                </div>
-
-                {/* Gauge for logF / logS */}
-                <div style={{ margin: "0 10px", textAlign: "center" }}>
-                  <CircularProgressbar
-                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Fci * 100}
-                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Fci * 100).toFixed(0)} pt.`}
-                    styles={buildStyles({
-                      textColor: "#118AB2",
-                      pathColor: "#118AB2",
-                      trailColor: "#d6d6d6",
-                    })}
-                  />
-                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Found ({((apiResults.n_seq/apiResults.n_mined)*100).toFixed(2)}%)</p>
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Active+Found</p>
                 </div>
               </div>
             </div>
@@ -304,12 +289,7 @@ const App = () => {
                 </span>
                 ×
                 <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
-                  <div>log(A)</div>
-                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(M)</div>
-                </span>
-                ×
-                <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
-                  <div>log(F)</div>
+                  <div>log(Avg(A,F))</div>
                   <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(M)</div>
                 </span>
               </span>
@@ -330,14 +310,16 @@ const App = () => {
               <th>Query</th>
               <th>Supply</th>
               <th>Mined</th>
-              <th>Active 365</th>
+              <th>Actv365</th>
               <th>Found</th>
-              <th>H(Found)</th>
-              <th>H(Total)</th>
+              <th>H(Fnd)</th>
+              <th>H(Ttl)</th>
+              <th>%Actv365</th>
+              <th>%Fnd</th>
               <th>S<sub>ci</sub></th>
-              <th>A<sub>ci</sub></th>
-              <th>F<sub>ci</sub></th>
+              <th>AF<sub>ci</sub></th>
               <th>Sat Score</th>
+              <th>Power Score</th>
             </tr>
           </thead>
           <tbody>
@@ -351,10 +333,12 @@ const App = () => {
                 <td>{formatNumber(queryData.result.n_seq)}</td>
                 <td>{formatNumber(queryData.result.n_seq_holders)}</td>
                 <td>{formatNumber(queryData.result.n_total_holders)}</td>
+                <td>{((queryData.result.n_365/queryData.result.n_mined)*100).toFixed(1)}%</td>
+                <td>{((queryData.result.n_seq/queryData.result.n_mined)*100).toFixed(1)}%</td>
                 <td>{queryData.satScore.Sci.toFixed(2)}</td>
-                <td>{queryData.satScore.Aci.toFixed(2)}</td>
-                <td>{queryData.satScore.Fci.toFixed(2)}</td>
+                <td>{queryData.satScore.AFci.toFixed(2)}</td>
                 <td>{queryData.satScore.score.toFixed(2)}</td>
+                <td>{queryData.satScore.power_transformed_score.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
