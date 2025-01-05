@@ -334,8 +334,8 @@ const App = () => {
               <th>Mined</th>
               <th>Actv<sub>365</sub></th>
               <th>Found</th>
-              <th>H<sub>Fnd</sub></th>
-              <th>H<sub>Ttl</sub></th>
+              <th>H<sub>fnd</sub></th>
+              <th>H<sub>ttl</sub></th>
               <th>%Actv<sub>365</sub></th>
               <th>%Fnd</th>
               <th>S<sub>ci</sub></th>
