@@ -25,7 +25,7 @@ const App = () => {
   };
 
   // Calculate Sat score
-  const calculateSatScore = (S, M, A, F) => {
+  const calculateSatScore = (S, M, A, F, FH) => {
     const S_max = 2.1 * Math.pow(10, 15); // 2.1 quadrillion
     const logS_max = Math.log(S_max);
     const logS = Math.log(S);
@@ -36,18 +36,20 @@ const App = () => {
 
     const Sc = (logS / logS_max);
     const AFc = Math.log(AF_avg_n) / logM;
+    const Hc = (1 - (FH / F)) > 0 ? (1 - (FH / F)) : 0.01;  // Impact of holders relative to supply
 
     const Sci = 1 - Sc;
     const AFci = 1 - AFc;
+    const Hci = 1 - Hc;
 
     // Calculate score using the formula
-    const score = 1000 * (1 - Sc * AFc);
+    const score = 1000 * (1 - Sc * AFc * Hc);
 
     // Apply power law transformation to the score
     const alpha = 1.5;
     const power_transformed_score = Math.pow(score / 1000, alpha) * 1000;
 
-    return { score, power_transformed_score, Sc, AFc, Sci, AFci };
+    return { score, power_transformed_score, Sc, AFc, Hc, Sci, AFci, Hci };
   };
 
   const handleCheckboxChange = (event) => {
@@ -87,7 +89,7 @@ const App = () => {
           setError(null);
 
           // Save the query and results in localStorage
-          const satScore = calculateSatScore(data.data.n_total, data.data.n_mined, data.data.n_365, data.data.n_seq);
+          const satScore = calculateSatScore(data.data.n_total, data.data.n_mined, data.data.n_365, data.data.n_seq, data.data.n_seq_holders);
 
           if(data.data.n_total > 0 && satScore.score) {
             const queryData = {
@@ -225,7 +227,7 @@ const App = () => {
             <div className="d-flex align-items-center justify-content-around mt-4">
               {/* Sat Score */}
               <div>
-                <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).score.toFixed(2)}</h3>
+                <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).score.toFixed(2)}</h3>
               </div>
 
               {/* Gauges */}
@@ -233,8 +235,8 @@ const App = () => {
                 {/* Gauge for logS / logS_max */}
                 <div style={{ margin: "0 10px", textAlign: "center" }}>
                   <CircularProgressbar
-                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Sci * 100}
-                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).Sci * 100).toFixed(0)} pt.`}
+                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).Sci * 100}
+                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).Sci * 100).toFixed(0)} pt.`}
                     styles={buildStyles({
                       textColor: "#EF476F",
                       pathColor: "#EF476F",
@@ -247,8 +249,8 @@ const App = () => {
                 {/* Gauge for AFci */}
                 <div style={{ margin: "0 10px", textAlign: "center" }}>
                   <CircularProgressbar
-                    value={calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).AFci * 100}
-                    text={`${(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq).AFci * 100).toFixed(0)} pt.`}
+                    value={Math.pow(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).AFci, 1/3) * 100}
+                    text={`${(Math.pow(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).AFci, 1/3) * 100).toFixed(0)} pt.`}
                     styles={buildStyles({
                       textColor: "#06D6A0",
                       pathColor: "#06D6A0",
@@ -257,13 +259,27 @@ const App = () => {
                   />
                   <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Active+Found</p>
                 </div>
+
+                {/* Gauge for Hci */}
+                <div style={{ margin: "0 10px", textAlign: "center" }}>
+                  <CircularProgressbar
+                    value={Math.pow(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).Hci, 1/3) * 100}
+                    text={`${(Math.pow(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).Hci, 1/3) * 100).toFixed(0)} pt.`}
+                    styles={buildStyles({
+                      textColor: "#06D6A0",
+                      pathColor: "#06D6A0",
+                      trailColor: "#d6d6d6",
+                    })}
+                  />
+                  <p style={{ marginTop: "10px", fontSize: "0.9rem" }}>Holders</p>
+                </div>
               </div>
             </div>
 
             <p><strong>What is the Sat Score?</strong></p>
             <p>
               The <strong>Sat score</strong> is a unique metric (developed by AI) that provides a numerical representation of the relative rarity of a given sat.
-              It is calculated using five key data points:
+              It is calculated using:
             </p>
             <ul>
               <li><strong>Smax</strong> - The total number of sats in existence (2.1 quadrillion).</li>
@@ -271,6 +287,7 @@ const App = () => {
               <li><strong>M (n_mined)</strong> - The number of mined sats.</li>
               <li><strong>A (n_365)</strong> - The number of sats active over the past 365 days.</li>
               <li><strong>F (n_seq)</strong> - The number of sats that are found.</li>
+              <li><strong>FH (n_seq_holders)</strong> - The number of holders of sats that are found.</li>
             </ul>
             <p>Note that the Sat score is logarithmic, meaning the resulting scores cannot be directly compared. For example, a score of 800 is not twice as rare as 400; it is significantly rarer, but the relationship is not linear.</p>
             <p>
@@ -292,6 +309,11 @@ const App = () => {
                   <div>log(Avg(A,F))</div>
                   <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(M)</div>
                 </span>
+                ×
+                <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
+                  <div>1</div>
+                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>(FH / F)</div>
+                </span>
               </span>
               ))
             </div>
@@ -310,14 +332,15 @@ const App = () => {
               <th>Query</th>
               <th>Supply</th>
               <th>Mined</th>
-              <th>Actv365</th>
+              <th>Actv<sub>365</sub></th>
               <th>Found</th>
-              <th>H(Fnd)</th>
-              <th>H(Ttl)</th>
-              <th>%Actv365</th>
+              <th>H<sub>Fnd</sub></th>
+              <th>H<sub>Ttl</sub></th>
+              <th>%Actv<sub>365</sub></th>
               <th>%Fnd</th>
               <th>S<sub>ci</sub></th>
               <th>AF<sub>ci</sub></th>
+              <th>H<sub>ci</sub></th>
               <th>Sat Score</th>
               <th>Power Score</th>
             </tr>
@@ -337,6 +360,7 @@ const App = () => {
                 <td>{((queryData.result.n_seq/queryData.result.n_mined)*100).toFixed(1)}%</td>
                 <td>{queryData.satScore.Sci.toFixed(2)}</td>
                 <td>{queryData.satScore.AFci.toFixed(2)}</td>
+                <td>{queryData.satScore.Hci.toFixed(2)}</td>
                 <td>{queryData.satScore.score.toFixed(2)}</td>
                 <td>{queryData.satScore.power_transformed_score.toFixed(2)}</td>
               </tr>
