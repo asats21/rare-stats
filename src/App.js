@@ -167,7 +167,7 @@ const App = () => {
           gap: "5px", // Minimized space between categories
         }}
       >
-        {renderCategory("RRI", rarities.RRI, "#EF476F")}          {/* Coral Red */}
+        {renderCategory("Rodarmor Rarity", rarities.RRI, "#EF476F")}          {/* Coral Red */}
         {renderCategory("Black", rarities.Black, "#2A2D34")}      {/* Charcoal Gray */}
         {renderCategory("Other types", rarities.Type, "#FFD166")}        {/* Goldenrod Yellow */}
         {renderCategory("Historical", rarities.Historical, "#118AB2")} {/* Azure Blue */}
