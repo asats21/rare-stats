@@ -311,8 +311,7 @@ const App = () => {
                 </span>
                 ×
                 <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
-                  <div>1</div>
-                  <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>(FH / F)</div>
+                  <div>(1 - (FH / F))</div>
                 </span>
               </span>
               ))
