@@ -266,8 +266,8 @@ const App = () => {
                     value={Math.pow(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).Hci, 1/3) * 100}
                     text={`${(Math.pow(calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).Hci, 1/3) * 100).toFixed(0)} pt.`}
                     styles={buildStyles({
-                      textColor: "#06D6A0",
-                      pathColor: "#06D6A0",
+                      textColor: "#118AB2",
+                      pathColor: "#118AB2",
                       trailColor: "#d6d6d6",
                     })}
                   />
@@ -341,8 +341,7 @@ const App = () => {
               <th>S<sub>ci</sub></th>
               <th>AF<sub>ci</sub></th>
               <th>H<sub>ci</sub></th>
-              <th>Sat Score</th>
-              <th>Power Score</th>
+              <th>Score</th>
             </tr>
           </thead>
           <tbody>
@@ -361,7 +360,6 @@ const App = () => {
                 <td>{queryData.satScore.Sci.toFixed(2)}</td>
                 <td>{queryData.satScore.AFci.toFixed(2)}</td>
                 <td>{queryData.satScore.Hci.toFixed(2)}</td>
-                <td>{queryData.satScore.score.toFixed(2)}</td>
                 <td>{queryData.satScore.power_transformed_score.toFixed(2)}</td>
               </tr>
             ))}
