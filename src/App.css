@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode-container {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode .btn-dark {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.dark-mode .btn-light {
+  background-color: #f0f0f0;
+  color: #121212;
+}
+
+.dark-mode .list-group-item {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.dark-mode .text-muted {
+  color: #bbbbbb !important;
+}

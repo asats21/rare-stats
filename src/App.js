@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import './App.css'; // Add a CSS file for additional styling
 
 const rarities = {
   RRI: ["uncommon", "rare", "epic"],
@@ -18,6 +19,13 @@ const App = () => {
   const [apiResults, setApiResults] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode((prevMode) => !prevMode);
+    document.body.classList.toggle('dark-mode');
+  };
 
   // Format numbers for readability
   const formatNumber = (number) => {
@@ -158,8 +166,18 @@ const App = () => {
   const sortedQueries = savedQueries.sort((a, b) => b.satScore.score - a.satScore.score);
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">Select Rarities</h1>
+    <div className={`container mt-5 ${darkMode ? 'dark-mode-container' : ''}`}>
+      {/* Dark mode toggle button */}
+      <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+        <button
+          className={`btn ${darkMode ? 'btn-light' : 'btn-dark'}`}
+          onClick={toggleDarkMode}
+        >
+          {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        </button>
+      </div>
+
+      <h1 className={`text-center mb-4 ${darkMode ? 'text-light' : 'text-dark'}`}>Select Rarities</h1>
       <div
         style={{
           display: "flex",
@@ -201,8 +219,8 @@ const App = () => {
 
       {apiResults && (
         <div className="mt-4">
-          <h2 className="mb-4">Results</h2>
-          <div className="list-group">
+          <h2 className={`mb-4 ${darkMode ? 'text-light' : 'text-dark'}`}>Results</h2>
+          <div className={`list-group ${darkMode ? 'bg-dark text-light' : ''}`}>
             <p className="list-group-item"><strong>Total:</strong> {formatNumber(apiResults.n_total)}</p>
             <p className="list-group-item"><strong>Mined:</strong> {formatNumber(apiResults.n_mined)}</p>
             <p className="list-group-item"><strong>Active Epoch:</strong> {formatNumber(apiResults.n_epoch)}</p>
