@@ -421,8 +421,13 @@ const App = () => {
 
       {/* Query History Table */}
       <div className="mt-4">
-        <h3>Query History</h3>
-        <table className="table table-striped">
+        <h3 className={darkMode ? "text-light" : "text-dark"}>Query History</h3>
+        <table
+          className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
+          style={{
+            border: darkMode ? "1px solid #444" : "1px solid #ddd",
+          }}
+        >
           <thead>
             <tr>
               <th>Query</th>
