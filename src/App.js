@@ -265,13 +265,27 @@ const App = () => {
   return (
     <div className={`container mt-5 ${darkMode ? 'dark-mode-container' : ''}`}>
       {/* Dark mode toggle button */}
-      <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
-        <button
-          className={`btn ${darkMode ? 'btn-light' : 'btn-dark'}`}
-          onClick={toggleDarkMode}
-        >
-          {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        </button>
+      <div
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <span className={darkMode ? "text-light" : "text-dark"} style={{ fontWeight: "bold" }}>
+          {darkMode ? "Switch To Light" : "Switch To Dark"} Mode
+        </span>
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={darkMode}
+            onChange={toggleDarkMode}
+          />
+          <span className="slider"></span>
+        </label>
       </div>
 
       <h1 className={`text-center mb-4 ${darkMode ? 'text-light' : 'text-dark'}`}>Select Rarities</h1>

@@ -65,3 +65,58 @@ body.dark-mode {
 .dark-mode .text-muted {
   color: #bbbbbb !important;
 }
+
+/* Toggle Switch Styles */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 25px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #118AB2; /* Azure Blue for dark mode */
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px); /* Move the toggle to the right */
+}
+
+/* Add subtle shadow to the switch for better aesthetics */
+.slider {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.slider:before {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
