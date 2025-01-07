@@ -162,41 +162,58 @@ const App = () => {
       });
   };
 
-  const renderCategory = (category, items, borderColor) => (
-    <div
-      style={{
-        border: `2px solid ${borderColor}`,
-        borderRadius: "10px",
-        margin: "5px",
-        padding: "10px",
-        flex: "1 1 30%", // Adjust for a compact layout
-        minWidth: "200px",
-      }}
-    >
-      <h5
+  const renderCategory = (category, items, borderColor) => {
+    // Tooltips for epochs
+    const epochTooltips = {
+      epoch0: "Jan 3, 2009 – Nov 28, 2012",  // Genesis block to first halving
+      epoch1: "Nov 28, 2012 – Jul 9, 2016",  // First to second halving
+      epoch2: "Jul 9, 2016 – May 11, 2020",  // Second to third halving
+      epoch3: "May 11, 2020 – Apr 20, 2024", // Third to fourth halving
+      epoch4: "Apr 20, 2024 – Mar 26, 2028", // Fourth to fifth halving
+    };
+  
+    return (
+      <div
         style={{
-          color: category === "Black" && darkMode ? "#FFFFFF" : borderColor,
-          marginBottom: "5px",
+          border: `2px solid ${borderColor}`,
+          borderRadius: "10px",
+          margin: "5px",
+          padding: "10px",
+          flex: "1 1 30%", // Adjust for a compact layout
+          minWidth: "200px",
         }}
-      >{category}</h5>
-      <div className="d-flex flex-wrap">
-        {items.map((item) => (
-          <div key={item} style={{ marginRight: "10px", marginBottom: "5px" }}>
-            <input
-              type="checkbox"
-              id={item}
-              value={item}
-              checked={selectedRarities.includes(item)}
-              onChange={handleCheckboxChange}
-            />
-            <label htmlFor={item} style={{ marginLeft: "5px" }}>
-              {item}
-            </label>
-          </div>
-        ))}
+      >
+        <h5
+          style={{
+            color: category === "Black" && darkMode ? "#FFFFFF" : borderColor,
+            marginBottom: "5px",
+          }}
+        >
+          {category}
+        </h5>
+        <div className="d-flex flex-wrap">
+          {items.map((item) => (
+            <div key={item} style={{ marginRight: "10px", marginBottom: "5px" }}>
+              <input
+                type="checkbox"
+                id={item}
+                value={item}
+                checked={selectedRarities.includes(item)}
+                onChange={handleCheckboxChange}
+              />
+              <label
+                htmlFor={item}
+                style={{ marginLeft: "5px" }}
+                title={epochTooltips[item] || ""}
+              >
+                {item}
+              </label>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   // Get saved queries from localStorage
   const savedQueries = JSON.parse(localStorage.getItem('queries')) || [];
