@@ -12,6 +12,7 @@ const rarities = {
   Events: ["pizza", "jpeg", "hitman", "silkroad"],
   Palindrome: ["1_digit", "2_digits", "3_digits", "perfect_palinception", "uniform_palinception", "sequence_palindrome"],
   Other: ["paliblock", "rodarmor", "fibonacci", "legacy"],
+  Epochs: ["epoch0", "epoch1", "epoch2", "epoch3", "epoch4"],
 };
 
 const App = () => {
@@ -62,11 +63,32 @@ const App = () => {
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
-    setSelectedRarities((prevState) =>
-      prevState.includes(value)
-        ? prevState.filter((item) => item !== value)
-        : [...prevState, value]
-    );
+  
+    if (value.startsWith("epoch")) {
+      // const epochNumber = parseInt(value.replace("epoch", ""));
+      const newSelections = selectedRarities.includes(value)
+        ? selectedRarities.filter((item) => item !== value)
+        : [...selectedRarities, value];
+  
+      // Validation: Ensure epoch continuity
+      const selectedEpochs = newSelections.filter((item) => item.startsWith("epoch"));
+      for (let i = 0; i < selectedEpochs.length - 1; i++) {
+        const current = parseInt(selectedEpochs[i].replace("epoch", ""));
+        const next = parseInt(selectedEpochs[i + 1].replace("epoch", ""));
+        if (next !== current + 1) {
+          alert("You cannot skip epochs. Select them in order.");
+          return;
+        }
+      }
+  
+      setSelectedRarities(newSelections);
+    } else {
+      setSelectedRarities((prevState) =>
+        prevState.includes(value)
+          ? prevState.filter((item) => item !== value)
+          : [...prevState, value]
+      );
+    }
   };
 
   const handleClearClick = () => {
@@ -81,8 +103,20 @@ const App = () => {
       return;
     }
 
-    const query = selectedRarities.join(",");
-    const apiUrl = `https://api.deezy.io/v1/sat-hunting/circulation?rarity=${query}`;
+    // Calculate block_start and block_end
+    const selectedEpochs = selectedRarities.filter((item) => item.startsWith("epoch"));
+    const block_start = selectedEpochs.length > 0
+      ? parseInt(selectedEpochs[0].replace("epoch", "")) * 210000
+      : undefined;
+    const block_end = selectedEpochs.length > 0
+      ? (parseInt(selectedEpochs[selectedEpochs.length - 1].replace("epoch", "")) + 1) * 210000
+      : undefined;
+
+    const query = selectedRarities.filter((item) => !item.startsWith("epoch")).join(",");
+    let apiUrl = `https://api.deezy.io/v1/sat-hunting/circulation?rarity=${query}`;
+    if (block_start !== undefined && block_end !== undefined) {
+      apiUrl += `&block_start=${block_start}&block_end=${block_end}`;
+    }
 
     setLoading(true);
 
@@ -192,6 +226,7 @@ const App = () => {
         {renderCategory("Events", rarities.Events, "#06D6A0")}    {/* Mint Green */}
         {renderCategory("Palindrome", rarities.Palindrome, "#8ECAE6")} {/* Sky Blue */}
         {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
+        {renderCategory("Epochs", rarities.Epochs, "#FFB703")} {/* Epoch color */}
       </div>
 
       <div className="text-center mb-4">
