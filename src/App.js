@@ -545,20 +545,22 @@ const App = () => {
         </table>
       </div>
 
-      {/* Clear Query History Button */}
-      <div className="text-center mt-3">
-        <button
-          className="btn btn-danger"
-          onClick={() => {
-            localStorage.removeItem("queries");
-            setApiResults(null); // Clear the API results state
-            setError(null);      // Clear any existing error state
-            window.location.reload(); // Reload the page to refresh the table
-          }}
-        >
-          Clear Query History
-        </button>
-      </div>
+      {/* Show Clear Query History Button Only If There Is History */}
+      {sortedQueries.length > 0 && (
+        <div className="text-center mt-3">
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              localStorage.removeItem("queries");
+              setApiResults(null); // Clear the API results state
+              setError(null);      // Clear any existing error state
+              window.location.reload(); // Reload the page to refresh the table
+            }}
+          >
+            Clear Query History
+          </button>
+        </div>
+      )}
 
       </div>
 
