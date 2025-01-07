@@ -25,12 +25,26 @@ const App = () => {
   const [apiResults, setApiResults] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+
+  const [darkMode, setDarkMode] = useState(() => {
+    // Retrieve dark mode preference from localStorage, default to false if not set
+    return localStorage.getItem("darkMode") === "true";
+  });
+
+  // Apply dark mode class to the body on state change
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+    // Save the dark mode preference in localStorage
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
   // Toggle dark mode
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => !prevMode);
-    document.body.classList.toggle('dark-mode');
   };
 
   // Format numbers for readability
