@@ -478,11 +478,18 @@ const App = () => {
 
       {/* Query History Table */}
       <div className="mt-4">
-        <h3 className={darkMode ? "text-light" : "text-dark"}>Query History</h3>
+      <h3 className={darkMode ? "text-light" : "text-dark"}>Query History</h3>
+      <div
+        style={{
+          overflowX: "auto", // Enable horizontal scrolling if needed
+          width: "100%",     // Ensure the container fits within the screen width
+        }}
+      >
         <table
           className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
           style={{
             border: darkMode ? "1px solid #444" : "1px solid #ddd",
+            minWidth: "800px", // Ensure the table is readable on smaller screens
           }}
         >
           <thead>
@@ -506,15 +513,14 @@ const App = () => {
             {sortedQueries.map((queryData, index) => (
               <tr key={index}>
                 <td>{queryData.query.join(", ")}</td>
-
                 <td>{formatNumber(queryData.result.n_total)}</td>
                 <td>{formatNumber(queryData.result.n_mined)}</td>
                 <td>{formatNumber(queryData.result.n_365)}</td>
                 <td>{formatNumber(queryData.result.n_seq)}</td>
                 <td>{formatNumber(queryData.result.n_seq_holders)}</td>
                 <td>{formatNumber(queryData.result.n_total_holders)}</td>
-                <td>{((queryData.result.n_365/queryData.result.n_mined)*100).toFixed(1)}%</td>
-                <td>{((queryData.result.n_seq/queryData.result.n_mined)*100).toFixed(1)}%</td>
+                <td>{((queryData.result.n_365 / queryData.result.n_mined) * 100).toFixed(1)}%</td>
+                <td>{((queryData.result.n_seq / queryData.result.n_mined) * 100).toFixed(1)}%</td>
                 <td>{queryData.satScore.Sci.toFixed(2)}</td>
                 <td>{queryData.satScore.AFci.toFixed(2)}</td>
                 <td>{queryData.satScore.Hci.toFixed(2)}</td>
@@ -523,6 +529,7 @@ const App = () => {
             ))}
           </tbody>
         </table>
+      </div>
       </div>
 
       {/* Legal Disclaimer */}
