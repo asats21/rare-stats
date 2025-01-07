@@ -285,7 +285,7 @@ const App = () => {
             <div className="d-flex align-items-center justify-content-around mt-4">
               {/* Sat Score */}
               <div>
-                <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).score.toFixed(2)}</h3>
+                <h3>Sat Score: {calculateSatScore(apiResults.n_total, apiResults.n_mined, apiResults.n_365, apiResults.n_seq, apiResults.n_seq_holders).power_transformed_score.toFixed(2)}</h3>
               </div>
 
               {/* Gauges */}
