@@ -211,7 +211,29 @@ const App = () => {
             </div>
           ))}
         </div>
+
+      {/* Add small block for mobile */}
+      {category === "Epochs" && (
+        <div
+          className="d-block d-md-none mt-2"
+          style={{
+            fontSize: "0.9rem",
+            color: darkMode ? "#FFFFFF" : "#000000",
+            background: darkMode ? "#2A2D34" : "#F8F9FA",
+            padding: "5px",
+            borderRadius: "5px",
+            border: `1px solid ${borderColor}`,
+          }}
+        >
+          {Object.entries(epochTooltips).map(([epoch, range]) => (
+            <p key={epoch} style={{ margin: 0 }}>
+              <strong>{epoch}:</strong> {range}
+            </p>
+          ))}
+        </div>
+      )}
       </div>
+
     );
   };
 
