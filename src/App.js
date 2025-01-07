@@ -25,11 +25,16 @@ const App = () => {
   const [apiResults, setApiResults] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [showSatScore, setShowSatScore] = useState(true);
 
   const [darkMode, setDarkMode] = useState(() => {
     // Retrieve dark mode preference from localStorage, default to false if not set
     return localStorage.getItem("darkMode") === "true";
+  });
+
+  const [showSatScore, setShowSatScore] = useState(() => {
+    // Retrieve the state from localStorage, default to true if not set
+    const storedValue = localStorage.getItem("showSatScore");
+    return storedValue === null ? true : storedValue === "true";
   });
 
   // Apply dark mode class to the body on state change
@@ -42,6 +47,10 @@ const App = () => {
     // Save the dark mode preference in localStorage
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
+
+  useEffect(() => {
+    localStorage.setItem("showSatScore", showSatScore);
+  }, [showSatScore]);
 
   // Toggle dark mode
   const toggleDarkMode = () => {
