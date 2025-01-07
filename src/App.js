@@ -303,7 +303,7 @@ const App = () => {
         {renderCategory("Events", rarities.Events, "#06D6A0")}    {/* Mint Green */}
         {renderCategory("Palindrome", rarities.Palindrome, "#8ECAE6")} {/* Sky Blue */}
         {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
-        {renderCategory("Epochs", rarities.Epochs, "#FFB703")} {/* Epoch color */}
+        {renderCategory("Halving epochs", rarities.Epochs, "#FFB703")} {/* Epoch color */}
       </div>
 
       <div className="text-center mb-4">
