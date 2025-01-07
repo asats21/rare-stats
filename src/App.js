@@ -173,7 +173,12 @@ const App = () => {
         minWidth: "200px",
       }}
     >
-      <h5 style={{ color: borderColor, marginBottom: "5px" }}>{category}</h5>
+      <h5
+        style={{
+          color: category === "Black" && darkMode ? "#FFFFFF" : borderColor,
+          marginBottom: "5px",
+        }}
+      >{category}</h5>
       <div className="d-flex flex-wrap">
         {items.map((item) => (
           <div key={item} style={{ marginRight: "10px", marginBottom: "5px" }}>
