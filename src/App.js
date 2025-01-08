@@ -440,7 +440,7 @@ const App = () => {
                   </h5>
                   <p style={{ fontSize: "1.2rem", margin: 0 }}>
                     {item.label === "Updated At" ? value : formatNumber(value)}
-                    {marketCap && (
+                    {marketCap && marketCap > 0 && (
                       <span
                         style={{
                           display: "block",
