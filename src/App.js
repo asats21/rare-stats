@@ -347,13 +347,32 @@ const App = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
+              flexWrap: "wrap", // Allows wrapping for smaller screens
+              gap: "10px",
+              marginBottom: "20px", // Adds spacing between the header and the cards
             }}
           >
-            <h2 className={`mb-4 ${darkMode ? "text-light" : "text-dark"}`}>Results</h2>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <h2
+              className={`mb-0 ${darkMode ? "text-light" : "text-dark"}`}
+              style={{ flex: "1 0 auto" }} // Flex item with responsive width
+            >
+              Results
+            </h2>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                flex: "0 0 auto", // Prevents shrinking for the input and label
+              }}
+            >
               <label
                 className={darkMode ? "text-light" : "text-dark"}
-                style={{ fontSize: "1rem", fontWeight: "bold" }}
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                  whiteSpace: "nowrap", // Prevents text wrapping
+                }}
               >
                 Floor Price, $
               </label>
@@ -363,10 +382,11 @@ const App = () => {
                 onChange={(e) => setFloorPrice(e.target.value)}
                 placeholder="Enter value"
                 style={{
-                  width: "100px",
+                  width: "120px", // Adjusted for better readability
                   padding: "5px",
                   border: "1px solid #ccc",
                   borderRadius: "5px",
+                  fontSize: "1rem",
                 }}
               />
             </div>
