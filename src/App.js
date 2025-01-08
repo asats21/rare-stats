@@ -22,6 +22,7 @@ const App = () => {
   }, []);
 
   const [selectedRarities, setSelectedRarities] = useState([]);
+  const [queriedRarities, setQueriedRarities] = useState([]);
   const [apiResults, setApiResults] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -197,7 +198,7 @@ const App = () => {
     ["uniform_palinception"],
     ["uniform_palinception", "2_digits"],
     ["uniform_palinception", "3_digits"],
-    ["uniform_palinception", "paliblock"],
+    ["uniform_palinception", "paliblock", "palindrome"],
     ["uniform_palinception", "paliblock", "3_digits"],
     ["uniform_palinception", "paliblock", "2_digits"],
     ["uniform_palinception", "sequence_palindrome"],
@@ -259,6 +260,9 @@ const App = () => {
     }
 
     setLoading(true);
+
+    // Update queried rarities to reflect the current selection
+    setQueriedRarities([...selectedRarities]);
 
     fetch(apiUrl)
       .then((response) => response.json())
@@ -484,7 +488,6 @@ const App = () => {
               justifyContent: "space-between",
               flexWrap: "wrap", // Allows wrapping for smaller screens
               gap: "10px",
-              marginBottom: "20px", // Adds spacing between the header and the cards
             }}
           >
             <h2
@@ -526,6 +529,14 @@ const App = () => {
               />
             </div>
           </div>
+
+          {/* Selected Traits Section */}
+          <div className="mb-3">
+            <p className={darkMode ? "text-light" : "text-dark"} style={{ fontSize: "1rem" }}>
+              {queriedRarities.length > 0 ? queriedRarities.join(", ") : "None"}
+            </p>
+          </div>
+
           <div
             style={{
               display: "flex",
