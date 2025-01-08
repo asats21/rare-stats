@@ -446,13 +446,13 @@ const App = () => {
 
       <div className="text-center mb-4">
         <button
-          className="btn btn-success mt-3 me-2"
+          className="btn btn-primary mt-3 me-2"
           onClick={handleQueryClick}
         >
           Query
         </button>
         <button
-          className="btn btn-primary mt-3 me-2"
+          className="btn btn-success mt-3 me-2"
           onClick={handleRecommendMeClick}
         >
           Feelin' Lucky
