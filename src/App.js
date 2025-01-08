@@ -479,7 +479,7 @@ const App = () => {
         </div>
       )}
 
-      {apiResults && (
+      {apiResults && !loading && (
         <div className="mt-4">
           <div
             style={{
@@ -606,7 +606,7 @@ const App = () => {
       )}
 
       {/* Display Sat Score if available */}
-      {apiResults && (
+      {apiResults && !loading && (
         <>
 
           <div className="mt-5">
