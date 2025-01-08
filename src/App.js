@@ -455,7 +455,7 @@ const App = () => {
           className="btn btn-primary mt-3 me-2"
           onClick={handleRecommendMeClick}
         >
-          Recommend Me
+          Feelin' Lucky
         </button>
         <button
           className="btn btn-secondary mt-3"
