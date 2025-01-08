@@ -38,12 +38,12 @@
 }
 
 body.dark-mode {
-  background-color: #121212;
+  background-color: #000;
   color: #ffffff;
 }
 
 .dark-mode-container {
-  background-color: #121212;
+  background-color: #000;
   color: #ffffff;
 }
 
