@@ -408,7 +408,7 @@ const App = () => {
               { label: "Inscribed", value: apiResults.n_inscribed },
               { label: "Holders (Found)", value: apiResults.n_seq_holders, noMC: true },
               { label: "Holders (Total)", value: apiResults.n_total_holders, noMC: true },
-              { label: "Updated At", value: new Date(apiResults.updated_at).toLocaleDateString(), noMC: true },
+              { label: "Updated At", value: new Date(apiResults.updated_at).toLocaleDateString("en-US"), noMC: true },
             ].map((item, index) => {
               const value = item.label === "Updated At" ? item.value : parseInt(item.value, 10); // Handle non-numeric values
               const marketCap = floorPrice && !item.noMC ? value * floorPrice : null; // Skip MC for specified cards
