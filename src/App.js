@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -26,6 +26,8 @@ const App = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [floorPrice, setFloorPrice] = useState("");
+  // State to track if Recommend Me triggered the query
+  const [recommendTriggered, setRecommendTriggered] = useState(false);
 
   const [darkMode, setDarkMode] = useState(() => {
     // Retrieve dark mode preference from localStorage, default to false if not set
@@ -127,7 +129,115 @@ const App = () => {
     setError(null);
   };
 
-  const handleQueryClick = () => {
+  const recommendedSets = [
+
+    ["uncommon", "2009"],
+    ["uncommon", "jan2009"],
+    ["uncommon", "alpha", "paliblock"],
+    ["uncommon", "alpha", "epoch0"],
+    ["uncommon", "alpha", "epoch1"],
+    ["uncommon", "alpha", "epoch2"],
+    ["uncommon", "alpha", "epoch3"],
+    ["uncommon", "alpha", "epoch4"],
+
+    ["black_uncommon", "2009"],
+    ["black_uncommon", "jan2009"],
+    ["black_uncommon", "omega", "paliblock"],
+
+    ["pizza", "alpha"],
+    ["pizza", "omega"],
+    ["pizza", "uncommon"],
+    ["pizza", "palindrome", "2009"],
+    ["pizza", "palindrome", "sequence_palindrome"],
+    ["pizza", "palindrome", "paliblock"],
+    ["pizza", "palindrome", "uniform_palinception"],
+    ["pizza", "palindrome", "uniform_palinception", "paliblock"],
+
+    ["jpeg", "alpha"],
+    ["jpeg", "omega"],
+    ["jpeg", "uncommon"],
+    ["jpeg", "palindrome"],
+    ["jpeg", "palindrome", "uniform_palinception"],
+
+    ["hitman", "alpha"],
+    ["hitman", "omega"],
+    ["hitman", "palindrome"],
+
+    ["silkroad", "alpha"],
+    ["silkroad", "omega"],
+    ["silkroad", "palindrome"],
+
+    ["nakamoto", "palindrome"],
+    ["nakamoto", "alpha"],
+    ["nakamoto", "omega"],
+
+    ["vintage", "alpha"],
+    ["vintage", "omega"],
+    ["vintage", "palindrome"],
+    ["vintage", "palindrome", "paliblock"],
+    ["vintage", "palindrome", "3_digits"],
+    ["vintage", "palindrome", "2_digits"],
+
+    ["block_78", "alpha"],
+    ["block_78", "omega"],
+    ["block_78", "palindrome"],
+    ["block_78", "palindrome", "2_digits"],
+    ["block_78", "palindrome", "3_digits"],
+    ["block_78", "uniform_palinception"],
+    ["block_78", "perfect_palinception"],
+
+    ["palindrome", "1_digit"],
+    ["palindrome", "2_digits"],
+    ["palindrome", "3_digits"],
+    ["palindrome", "3_digits", "epoch1"],
+    ["palindrome", "3_digits", "epoch2"],
+    ["palindrome", "3_digits", "epoch3"],
+    ["palindrome", "3_digits", "epoch4"],
+
+    ["uniform_palinception"],
+    ["uniform_palinception", "2_digits"],
+    ["uniform_palinception", "3_digits"],
+    ["uniform_palinception", "paliblock"],
+    ["uniform_palinception", "paliblock", "3_digits"],
+    ["uniform_palinception", "paliblock", "2_digits"],
+    ["uniform_palinception", "sequence_palindrome"],
+    ["uniform_palinception", "paliblock", "3_digits", "sequence_palindrome"],
+
+    ["perfect_palinception"],
+    ["perfect_palinception", "paliblock"],
+    ["perfect_palinception", "2_digits"],
+    ["perfect_palinception", "3_digits"],
+    ["perfect_palinception", "paliblock", "3_digits"],
+    ["perfect_palinception", "epoch1"],
+    ["perfect_palinception", "epoch2"],
+    ["perfect_palinception", "epoch3"],
+    ["perfect_palinception", "epoch4"],
+    ["perfect_palinception", "sequence_palindrome"],
+
+    ["450x", "palindrome"],
+    ["block_9", "palindrome"],
+    ["block_9", "alpha"],
+
+    ["block_286", "palindrome"],
+    ["block_286", "alpha"],
+
+    ["rodarmor"],
+    ["rodarmor", "2009"],
+    
+    ["legacy"],
+  ];
+
+  const handleRecommendMeClick = () => {
+    // Randomly pick a set from the recommended sets
+    const randomSet = recommendedSets[Math.floor(Math.random() * recommendedSets.length)];
+    // Check the new set
+    setSelectedRarities(randomSet);
+
+    // Set flag to trigger API request after state updates
+    setRecommendTriggered(true);
+  };
+
+  const handleQueryClick = useCallback(() => {
     if (selectedRarities.length === 0) {
       setError("Please select at least one rarity.");
       return;
@@ -195,7 +305,15 @@ const App = () => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, [selectedRarities]);
+
+  // Monitor state changes and make the API request
+  useEffect(() => {
+    if (recommendTriggered && selectedRarities.length > 0) {
+      handleQueryClick();
+      setRecommendTriggered(false); // Reset the flag
+    }
+  }, [selectedRarities, recommendTriggered, handleQueryClick]);
 
   const renderCategory = (category, items, borderColor) => {
     // Tooltips for epochs
@@ -323,10 +441,22 @@ const App = () => {
       </div>
 
       <div className="text-center mb-4">
-        <button className="btn btn-primary mt-3" onClick={handleQueryClick}>
+        <button
+          className="btn btn-success mt-3 me-2"
+          onClick={handleQueryClick}
+        >
           Query
         </button>
-        <button className="btn btn-secondary mt-3 ms-2" onClick={handleClearClick}>
+        <button
+          className="btn btn-primary mt-3 me-2"
+          onClick={handleRecommendMeClick}
+        >
+          Recommend Me
+        </button>
+        <button
+          className="btn btn-secondary mt-3"
+          onClick={handleClearClick}
+        >
           Clear
         </button>
       </div>
