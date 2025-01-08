@@ -164,17 +164,22 @@ const App = () => {
           const satScore = calculateSatScore(data.data.n_total, data.data.n_mined, data.data.n_365, data.data.n_seq, data.data.n_seq_holders);
 
           if(data.data.n_total > 0 && satScore.score) {
+            const sortedRarities = [...selectedRarities].sort(); // Create a sorted copy
+
             const queryData = {
-              query: selectedRarities,
+              query: sortedRarities, // Use the sorted rarities here
               result: data.data,
               satScore: satScore,
             };
-
+          
             // Get existing queries from localStorage
             const savedQueries = JSON.parse(localStorage.getItem('queries')) || [];
-
-            // Prevent duplicates by checking if the query already exists
-            const isDuplicate = savedQueries.some(item => item.query.join(",") === selectedRarities.join(","));
+          
+            // Prevent duplicates by comparing the sorted queries
+            const isDuplicate = savedQueries.some(
+              item => item.query.join(",") === sortedRarities.join(",")
+            );
+          
             if (!isDuplicate) {
               savedQueries.push(queryData);
               localStorage.setItem('queries', JSON.stringify(savedQueries));
