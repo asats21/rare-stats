@@ -25,6 +25,7 @@ const App = () => {
   const [apiResults, setApiResults] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [floorPrice, setFloorPrice] = useState("");
 
   const [darkMode, setDarkMode] = useState(() => {
     // Retrieve dark mode preference from localStorage, default to false if not set
@@ -340,8 +341,36 @@ const App = () => {
       )}
 
       {apiResults && (
-        <div className="my-4">
-          <h2 className={`mb-4 ${darkMode ? 'text-light' : 'text-dark'}`}>Results</h2>
+        <div className="mt-4">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <h2 className={`mb-4 ${darkMode ? "text-light" : "text-dark"}`}>Results</h2>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <label
+                className={darkMode ? "text-light" : "text-dark"}
+                style={{ fontSize: "1rem", fontWeight: "bold" }}
+              >
+                Floor Price, $
+              </label>
+              <input
+                type="number"
+                value={floorPrice}
+                onChange={(e) => setFloorPrice(e.target.value)}
+                placeholder="Enter value"
+                style={{
+                  width: "100px",
+                  padding: "5px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                }}
+              />
+            </div>
+          </div>
           <div
             style={{
               display: "flex",
@@ -351,47 +380,61 @@ const App = () => {
             }}
           >
             {[
-              { label: "Total", value: formatNumber(apiResults.n_total) },
-              { label: "Mined", value: formatNumber(apiResults.n_mined) },
-              { label: "Active Epoch", value: formatNumber(apiResults.n_epoch) },
-              { label: "Active 365 Days", value: formatNumber(apiResults.n_365) },
-              { label: "Found", value: formatNumber(apiResults.n_seq) },
-              { label: "Inscribed", value: formatNumber(apiResults.n_inscribed) },
-              { label: "Holders (Found)", value: formatNumber(apiResults.n_seq_holders) },
-              { label: "Holders (Total)", value: formatNumber(apiResults.n_total_holders) },
-              {
-                label: "Updated At",
-                value: new Date(apiResults.updated_at).toLocaleString(),
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                style={{
-                  background: darkMode ? "#2A2D34" : "#F8F9FA",
-                  color: darkMode ? "#FFFFFF" : "#000000",
-                  border: darkMode ? "1px solid #444" : "1px solid #ddd",
-                  borderRadius: "8px",
-                  padding: "15px",
-                  textAlign: "center",
-                  width: "calc(33.33% - 20px)", // Three items per row with gap
-                  minWidth: "200px",
-                  boxShadow: darkMode
-                    ? "0 4px 6px rgba(0, 0, 0, 0.3)"
-                    : "0 4px 6px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <h5
+              { label: "Total", value: apiResults.n_total },
+              { label: "Mined", value: apiResults.n_mined },
+              { label: "Active Epoch", value: apiResults.n_epoch },
+              { label: "Active 365 Days", value: apiResults.n_365 },
+              { label: "Found", value: apiResults.n_seq },
+              { label: "Inscribed", value: apiResults.n_inscribed },
+              { label: "Holders (Found)", value: apiResults.n_seq_holders, noMC: true },
+              { label: "Holders (Total)", value: apiResults.n_total_holders, noMC: true },
+              { label: "Updated At", value: new Date(apiResults.updated_at).toLocaleDateString(), noMC: true },
+            ].map((item, index) => {
+              const value = item.label === "Updated At" ? item.value : parseInt(item.value, 10); // Handle non-numeric values
+              const marketCap = floorPrice && !item.noMC ? value * floorPrice : null; // Skip MC for specified cards
+              return (
+                <div
+                  key={index}
                   style={{
-                    marginBottom: "10px",
-                    fontSize: "1rem",
-                    fontWeight: "bold",
+                    background: darkMode ? "#2A2D34" : "#F8F9FA",
+                    color: darkMode ? "#FFFFFF" : "#000000",
+                    border: darkMode ? "1px solid #444" : "1px solid #ddd",
+                    borderRadius: "8px",
+                    padding: "15px",
+                    textAlign: "center",
+                    width: "calc(33.33% - 20px)", // Three items per row with gap
+                    minWidth: "200px",
+                    boxShadow: darkMode
+                      ? "0 4px 6px rgba(0, 0, 0, 0.3)"
+                      : "0 4px 6px rgba(0, 0, 0, 0.1)",
                   }}
                 >
-                  {item.label}
-                </h5>
-                <p style={{ fontSize: "1.2rem", margin: 0 }}>{item.value}</p>
-              </div>
-            ))}
+                  <h5
+                    style={{
+                      marginBottom: "10px",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {item.label}
+                  </h5>
+                  <p style={{ fontSize: "1.2rem", margin: 0 }}>
+                    {item.label === "Updated At" ? value : formatNumber(value)}
+                    {marketCap && (
+                      <span
+                        style={{
+                          display: "block",
+                          fontSize: "0.9rem",
+                          color: darkMode ? "#BBBBBB" : "#666666",
+                        }}
+                      >
+                        (Market Cap ${formatNumber(marketCap)})
+                      </span>
+                    )}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
