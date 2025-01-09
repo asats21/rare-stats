@@ -557,7 +557,7 @@ const App = () => {
               { label: "Updated At", value: new Date(apiResults.updated_at).toLocaleDateString("en-US"), noMC: true },
             ].map((item, index) => {
               const value = item.label === "Updated At" ? item.value : parseInt(item.value, 10); // Handle non-numeric values
-              const marketCap = floorPrice && !item.noMC ? value * floorPrice : null; // Skip MC for specified cards
+              const marketCap = floorPrice && !item.noMC && value > 0 ? value * floorPrice : null; // Skip MC for specified cards
               return (
                 <div
                   key={index}
