@@ -548,16 +548,17 @@ const App = () => {
             {[
               { label: "Total", value: apiResults.n_total },
               { label: "Mined", value: apiResults.n_mined },
-              { label: "Active Epoch", value: apiResults.n_epoch },
-              { label: "Active 365 Days", value: apiResults.n_365 },
-              { label: "Found", value: apiResults.n_seq },
-              { label: "Inscribed", value: apiResults.n_inscribed },
+              { label: "Active Epoch", value: apiResults.n_epoch, percentage: true },
+              { label: "Active 365 Days", value: apiResults.n_365, percentage: true },
+              { label: "Found", value: apiResults.n_seq, percentage: true },
+              { label: "Inscribed", value: apiResults.n_inscribed, percentage: true },
               { label: "Holders (Found)", value: apiResults.n_seq_holders, noMC: true },
               { label: "Holders (Total)", value: apiResults.n_total_holders, noMC: true },
               { label: "Updated At", value: new Date(apiResults.updated_at).toLocaleDateString("en-US"), noMC: true },
             ].map((item, index) => {
               const value = item.label === "Updated At" ? item.value : parseInt(item.value, 10); // Handle non-numeric values
               const marketCap = floorPrice && !item.noMC && value > 0 ? value * floorPrice : null; // Skip MC for specified cards
+              const percentage = item.percentage && apiResults.n_mined > 0 ? ((item.value/apiResults.n_mined)*100).toFixed(1) : null; // Percentage
               return (
                 <div
                   key={index}
@@ -586,6 +587,18 @@ const App = () => {
                   </h5>
                   <p style={{ fontSize: "1.2rem", margin: 0 }}>
                     {item.label === "Updated At" ? value : formatNumber(value)}
+                    {percentage && (
+                      <span
+                        className="percentage-text"
+                        style={{
+                          fontSize: "0.85rem", // Make it slightly smaller
+                          color: "gray",       // Deemphasize with a muted color
+                          marginLeft: "4px",   // Add spacing
+                        }}
+                      >
+                        ({formatNumber(percentage)}%)
+                      </span>
+                    )}
                     {marketCap && marketCap > 0 && (
                       <span
                         style={{
