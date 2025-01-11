@@ -820,37 +820,35 @@ const App = () => {
 
       {apiResults?.top_seq_holders?.length > 0 && (
         <div className="my-4">
-          <h5 className={darkMode ? "text-light" : "text-dark"}>
+          <h3 className={darkMode ? "text-light" : "text-dark"}>
             Top Holders (Found)
-          </h5>
-          <ul
-            style={{
-              listStyle: "none",
-              backgroundColor: darkMode ? "#2A2D34" : "#F8F9FA",
-              borderRadius: "8px",
-              padding: "15px",
-              color: darkMode ? "#FFFFFF" : "#000000",
-            }}
-          >
-            {apiResults.top_seq_holders.map((holder, index) => (
-              <li
-                key={index}
-                style={{
-                  borderBottom: index < apiResults.top_seq_holders.length - 1 ? "1px solid #ccc" : "none",
-                  paddingBottom: "10px",
-                  marginBottom: "10px",
-                }}
-              >
-                <strong>Address:</strong> {holder.address}
-                <br />
-                <strong>Quantity:</strong> {holder.n}
-                <br />
-                <strong>Max Sent Height:</strong> {holder.max_send_height}
-                <br />
-                <strong>Max Received Height:</strong> {holder.max_receive_height}
-              </li>
-            ))}
-          </ul>
+          </h3>
+            <table
+              className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
+              style={{
+                border: darkMode ? "1px solid #444" : "1px solid #ddd",
+                minWidth: "800px", // Ensure the table is readable on smaller screens
+              }}
+            >
+              <thead>
+                <tr>
+                  <th>Address</th>
+                  <th>Quantity</th>
+                  <th>Max Sent Height</th>
+                  <th>Max Received Height</th>
+                </tr>
+              </thead>
+              <tbody>
+                {apiResults.top_seq_holders.map((holder, index) => (
+                  <tr key={index}>
+                    <td>{holder.address}</td>
+                    <td>{holder.n}</td>
+                    <td>{holder.max_send_height}</td>
+                    <td>{holder.max_receive_height}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
         </div>
       )}
 
