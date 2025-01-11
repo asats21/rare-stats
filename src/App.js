@@ -461,11 +461,15 @@ const App = () => {
             alignItems: "center",
           }}
         >
-          <FaCog
-            size={24}
-            onClick={handleToggleSettings}
-            style={{ cursor: "pointer", color: "#ffffff", marginLeft: "10px" }}
-          />
+        <FaCog
+          size={24}
+          onClick={handleToggleSettings}
+          style={{
+            cursor: "pointer",
+            color: darkMode ? "#ffffff" : "#333333", // Adjust color for light mode
+            marginLeft: "10px",
+          }}
+        />
 
           {/* Settings Dropdown */}
           {showSettings && (
