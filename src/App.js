@@ -32,8 +32,12 @@ const App = () => {
   const [recommendTriggered, setRecommendTriggered] = useState(false);
 
   const [showSettings, setShowSettings] = useState(false);
-  const [showTopHolders, setShowTopHolders] = useState(false);
-  const [showTopHoldersFound, setShowTopHoldersFound] = useState(false);
+  const [showTopHolders, setShowTopHolders] = useState(
+    JSON.parse(localStorage.getItem("showTopHolders")) || false
+  );
+  const [showTopHoldersFound, setShowTopHoldersFound] = useState(
+    JSON.parse(localStorage.getItem("showTopHoldersFound")) || false
+  );
 
   const [darkMode, setDarkMode] = useState(() => {
     // Retrieve dark mode preference from localStorage, default to false if not set
@@ -71,11 +75,15 @@ const App = () => {
   };
 
   const handleShowTopHoldersChange = (event) => {
-    setShowTopHolders(event.target.checked);
+    const value = event.target.checked;
+    setShowTopHolders(value);
+    localStorage.setItem("showTopHolders", JSON.stringify(value));
   };
 
   const handleShowTopHoldersFoundChange = (event) => {
-    setShowTopHoldersFound(event.target.checked);
+    const value = event.target.checked;
+    setShowTopHoldersFound(value);
+    localStorage.setItem("showTopHoldersFound", JSON.stringify(value));
   };
 
   // Format numbers for readability
