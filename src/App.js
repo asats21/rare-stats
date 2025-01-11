@@ -808,20 +808,61 @@ const App = () => {
                   <p>The Sat score helps users quickly gauge the rarity and significance of specific sat without having to manually interpret large sets of numbers. By looking at the Sat score, you can get a clearer sense of how valuable or noteworthy an item might be, especially when comparing multiple items.</p>
 
                   <p><strong>Formula:</strong></p>
-                  <div style={{ fontSize: '1.2rem', fontFamily: 'Courier, monospace', lineHeight: '1.6' }}>
-                    PowerLaw(1000 × ( 1 - 
-                    <span style={{ display: 'inline-flex', alignItems: 'center' }}>
-                      <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
+                  <div
+                    style={{
+                      fontSize: "1.2rem",
+                      fontFamily: "Courier, monospace",
+                      lineHeight: "1.6",
+                    }}
+                  >
+                    PowerLaw(1000 × ( 1 -
+                    <span style={{ display: "inline-flex", alignItems: "center" }}>
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          margin: "0 5px",
+                        }}
+                      >
                         <div>log(S)</div>
-                        <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(S<sub>max</sub>)</div>
+                        <div
+                          style={{
+                            borderTop: `1px solid ${darkMode ? "#ffffff" : "#000000"}`, // Adjust for dark mode
+                            padding: "0 5px",
+                          }}
+                        >
+                          log(S<sub>max</sub>)
+                        </div>
                       </span>
                       ×
-                      <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          margin: "0 5px",
+                        }}
+                      >
                         <div>log(Avg(A,F))</div>
-                        <div style={{ borderTop: '1px solid black', padding: '0 5px' }}>log(M)</div>
+                        <div
+                          style={{
+                            borderTop: `1px solid ${darkMode ? "#ffffff" : "#000000"}`, // Adjust for dark mode
+                            padding: "0 5px",
+                          }}
+                        >
+                          log(M)
+                        </div>
                       </span>
                       ×
-                      <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', margin: '0 5px' }}>
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          margin: "0 5px",
+                        }}
+                      >
                         <div>(1 - (FH / F))</div>
                       </span>
                     </span>
