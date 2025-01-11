@@ -22,18 +22,6 @@ const App = () => {
     document.title = "Rare Stats";
   }, []);
 
-  const handleToggleSettings = () => {
-    setShowSettings(!showSettings);
-  };
-
-  const handleShowTopHoldersChange = (event) => {
-    setShowTopHolders(event.target.checked);
-  };
-
-  const handleShowTopHoldersFoundChange = (event) => {
-    setShowTopHoldersFound(event.target.checked);
-  };
-
   const [selectedRarities, setSelectedRarities] = useState([]);
   const [queriedRarities, setQueriedRarities] = useState([]);
   const [apiResults, setApiResults] = useState(null);
@@ -76,6 +64,18 @@ const App = () => {
   // Toggle dark mode
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => !prevMode);
+  };
+
+  const handleToggleSettings = () => {
+    setShowSettings(!showSettings);
+  };
+
+  const handleShowTopHoldersChange = (event) => {
+    setShowTopHolders(event.target.checked);
+  };
+
+  const handleShowTopHoldersFoundChange = (event) => {
+    setShowTopHoldersFound(event.target.checked);
   };
 
   // Format numbers for readability
@@ -818,7 +818,7 @@ const App = () => {
         </>
       )}
 
-      {apiResults?.top_seq_holders?.length > 0 && (
+      {showTopHoldersFound && apiResults?.top_seq_holders?.length > 0 && (
         <div className="my-4">
           <h3 className={darkMode ? "text-light" : "text-dark"}>
             Top Holders (Found)
@@ -840,6 +840,40 @@ const App = () => {
               </thead>
               <tbody>
                 {apiResults.top_seq_holders.map((holder, index) => (
+                  <tr key={index}>
+                    <td>{holder.address}</td>
+                    <td>{holder.n}</td>
+                    <td>{holder.max_send_height}</td>
+                    <td>{holder.max_receive_height}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+        </div>
+      )}
+
+      {showTopHolders && apiResults?.top_holders?.length > 0 && (
+        <div className="my-4">
+          <h3 className={darkMode ? "text-light" : "text-dark"}>
+            Top Holders
+          </h3>
+            <table
+              className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
+              style={{
+                border: darkMode ? "1px solid #444" : "1px solid #ddd",
+                minWidth: "800px", // Ensure the table is readable on smaller screens
+              }}
+            >
+              <thead>
+                <tr>
+                  <th>Address</th>
+                  <th>Quantity</th>
+                  <th>Max Sent Height</th>
+                  <th>Max Received Height</th>
+                </tr>
+              </thead>
+              <tbody>
+                {apiResults.top_holders.map((holder, index) => (
                   <tr key={index}>
                     <td>{holder.address}</td>
                     <td>{holder.n}</td>
