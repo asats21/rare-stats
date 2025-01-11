@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import './App.css'; // Add a CSS file for additional styling
+import { FaCog } from "react-icons/fa"; // Install react-icons if not already installed
 
 const rarities = {
   RRI: ["uncommon", "rare", "epic"],
@@ -21,6 +22,18 @@ const App = () => {
     document.title = "Rare Stats";
   }, []);
 
+  const handleToggleSettings = () => {
+    setShowSettings(!showSettings);
+  };
+
+  const handleShowTopHoldersChange = (event) => {
+    setShowTopHolders(event.target.checked);
+  };
+
+  const handleShowTopHoldersFoundChange = (event) => {
+    setShowTopHoldersFound(event.target.checked);
+  };
+
   const [selectedRarities, setSelectedRarities] = useState([]);
   const [queriedRarities, setQueriedRarities] = useState([]);
   const [apiResults, setApiResults] = useState(null);
@@ -29,7 +42,10 @@ const App = () => {
   const [floorPrice, setFloorPrice] = useState("");
   // State to track if Recommend Me triggered the query
   const [recommendTriggered, setRecommendTriggered] = useState(false);
+
+  const [showSettings, setShowSettings] = useState(false);
   const [showTopHolders, setShowTopHolders] = useState(false);
+  const [showTopHoldersFound, setShowTopHoldersFound] = useState(false);
 
   const [darkMode, setDarkMode] = useState(() => {
     // Retrieve dark mode preference from localStorage, default to false if not set
@@ -431,6 +447,53 @@ const App = () => {
         </label>
       </div>
 
+      {/* Settings Icon */}
+      <div className="settings-icon" style={{ position: "relative" }}>
+        <FaCog
+          size={24}
+          onClick={handleToggleSettings}
+          style={{ cursor: "pointer", color: "#ffffff", marginLeft: "10px" }}
+        />
+
+        {/* Settings Dropdown */}
+        {showSettings && (
+          <div
+            className="settings-menu"
+            style={{
+              position: "absolute",
+              top: "30px",
+              left: "0",
+              background: "#333",
+              color: "#fff",
+              border: "1px solid #555",
+              borderRadius: "5px",
+              padding: "10px",
+              zIndex: 10,
+              minWidth: "200px",
+            }}
+          >
+            <label className="d-flex align-items-center mb-2">
+              <input
+                type="checkbox"
+                checked={showTopHolders}
+                onChange={handleShowTopHoldersChange}
+                className="me-2"
+              />
+              Show Top Holders
+            </label>
+            <label className="d-flex align-items-center">
+              <input
+                type="checkbox"
+                checked={showTopHoldersFound}
+                onChange={handleShowTopHoldersFoundChange}
+                className="me-2"
+              />
+              Show Top Holders (Found)
+            </label>
+          </div>
+        )}
+      </div>
+
       <h1 className={`text-center mb-4 ${darkMode ? 'text-light' : 'text-dark'}`}>Select Rarities</h1>
       <div
         style={{
@@ -468,24 +531,6 @@ const App = () => {
         >
           Clear
         </button>
-      </div>
-
-      {/* Add Show Top Holders Checkbox */}
-      <div>
-        <label style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <input
-            type="checkbox"
-            checked={showTopHolders}
-            onChange={(e) => setShowTopHolders(e.target.checked)}
-            style={{
-              transform: "scale(1.2)", // Make it visually appealing
-              marginRight: "5px",
-            }}
-          />
-          <span className={darkMode ? "text-light" : "text-dark"}>
-            Show Top Holders
-          </span>
-        </label>
       </div>
 
       {loading && (
