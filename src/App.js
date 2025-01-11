@@ -889,6 +889,12 @@ const App = () => {
           <h3 className={darkMode ? "text-light" : "text-dark"}>
             Top Holders (Found)
           </h3>
+          <div
+            style={{
+              overflowX: "auto", // Enable horizontal scrolling if needed
+              width: "100%",     // Ensure the container fits within the screen width
+            }}
+          >
             <table
               className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
               style={{
@@ -933,6 +939,7 @@ const App = () => {
               })()}
             </tbody>
             </table>
+          </div>
         </div>
       )}
 
@@ -941,6 +948,12 @@ const App = () => {
           <h3 className={darkMode ? "text-light" : "text-dark"}>
             Top Holders
           </h3>
+          <div
+            style={{
+              overflowX: "auto", // Enable horizontal scrolling if needed
+              width: "100%",     // Ensure the container fits within the screen width
+            }}
+          >
             <table
               className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
               style={{
@@ -979,6 +992,7 @@ const App = () => {
                 })()}
               </tbody>
             </table>
+          </div>
         </div>
       )}
 
