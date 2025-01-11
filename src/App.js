@@ -423,75 +423,88 @@ const App = () => {
 
   return (
     <div className={`container mt-5 ${darkMode ? 'dark-mode-container' : ''}`}>
-      {/* Dark mode toggle button */}
+      {/* Header with "Select Rarities" and Settings Icon */}
       <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px",
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-        }}
+        className="d-flex justify-content-between align-items-center mb-4"
+        style={{ position: "relative" }}
       >
-        <span className={darkMode ? "text-light" : "text-dark"} style={{ fontWeight: "bold" }}>
-          {darkMode ? "Switch To Light" : "Switch To Dark"} Mode
-        </span>
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={darkMode}
-            onChange={toggleDarkMode}
-          />
-          <span className="slider"></span>
-        </label>
-      </div>
-
-      {/* Settings Icon */}
-      <div className="settings-icon" style={{ position: "relative" }}>
-        <FaCog
-          size={24}
-          onClick={handleToggleSettings}
-          style={{ cursor: "pointer", color: "#ffffff", marginLeft: "10px" }}
-        />
-
-        {/* Settings Dropdown */}
-        {showSettings && (
-          <div
-            className="settings-menu"
-            style={{
-              position: "absolute",
-              top: "30px",
-              left: "0",
-              background: "#333",
-              color: "#fff",
-              border: "1px solid #555",
-              borderRadius: "5px",
-              padding: "10px",
-              zIndex: 10,
-              minWidth: "200px",
-            }}
+        {/* Night Mode Toggle */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <span
+            className={darkMode ? "text-light" : "text-dark"}
+            style={{ fontWeight: "bold" }}
           >
-            <label className="d-flex align-items-center mb-2">
-              <input
-                type="checkbox"
-                checked={showTopHolders}
-                onChange={handleShowTopHoldersChange}
-                className="me-2"
-              />
-              Show Top Holders
-            </label>
-            <label className="d-flex align-items-center">
-              <input
-                type="checkbox"
-                checked={showTopHoldersFound}
-                onChange={handleShowTopHoldersFoundChange}
-                className="me-2"
-              />
-              Show Top Holders (Found)
-            </label>
-          </div>
-        )}
+            {darkMode ? "Switch To Light" : "Switch To Dark"} Mode
+          </span>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={darkMode}
+              onChange={toggleDarkMode}
+            />
+            <span className="slider"></span>
+          </label>
+        </div>
+
+        {/* Settings Icon */}
+        <div
+          className="settings-icon"
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          <FaCog
+            size={24}
+            onClick={handleToggleSettings}
+            style={{ cursor: "pointer", color: "#ffffff", marginLeft: "10px" }}
+          />
+
+          {/* Settings Dropdown */}
+          {showSettings && (
+            <div
+              className="settings-menu"
+              style={{
+                position: "absolute",
+                top: "30px",
+                right: "0",
+                background: "#333",
+                color: "#fff",
+                border: "1px solid #555",
+                borderRadius: "5px",
+                padding: "10px",
+                zIndex: 10,
+                minWidth: "200px",
+              }}
+            >
+              <label className="d-flex align-items-center mb-2">
+                <input
+                  type="checkbox"
+                  checked={showTopHolders}
+                  onChange={handleShowTopHoldersChange}
+                  className="me-2"
+                />
+                Show Top Holders
+              </label>
+              <label className="d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  checked={showTopHoldersFound}
+                  onChange={handleShowTopHoldersFoundChange}
+                  className="me-2"
+                />
+                Show Top Holders (Found)
+              </label>
+            </div>
+          )}
+        </div>
       </div>
 
       <h1 className={`text-center mb-4 ${darkMode ? 'text-light' : 'text-dark'}`}>Select Rarities</h1>
