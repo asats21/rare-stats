@@ -276,7 +276,7 @@ const App = () => {
       apiUrl += `&block_start=${block_start}&block_end=${block_end}`;
     }
 
-    if(showTopHolders) {
+    if(showTopHolders || showTopHoldersFound) {
       apiUrl += `&include_top_holders=true`;
     }
 
@@ -330,7 +330,7 @@ const App = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [selectedRarities, showTopHolders]);
+  }, [selectedRarities, showTopHolders, showTopHoldersFound]);
 
   // Monitor state changes and make the API request
   useEffect(() => {
