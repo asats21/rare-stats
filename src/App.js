@@ -944,21 +944,33 @@ const App = () => {
             >
               <thead>
                 <tr>
+                  <th>#</th>
                   <th>Address</th>
                   <th>Quantity</th>
+                  <th>Cumulative %</th>
                   <th>Max Sent Height</th>
                   <th>Max Received Height</th>
                 </tr>
               </thead>
               <tbody>
-                {apiResults.top_holders.map((holder, index) => (
-                  <tr key={index}>
-                    <td>{holder.address}</td>
-                    <td>{holder.n}</td>
-                    <td>{holder.max_send_height}</td>
-                    <td>{holder.max_receive_height}</td>
-                  </tr>
-                ))}
+                {(() => {
+                  let cumulativeSum = 0; // Initialize cumulative sum
+                  const nTotal = apiResults.n_total; // Total `n_total` value
+                  return apiResults.top_holders.map((holder, index) => {
+                    cumulativeSum += holder.n; // Add the current holder's quantity to the cumulative sum
+                    const cumulativePercentage = ((cumulativeSum / nTotal) * 100).toFixed(2); // Calculate cumulative percentage
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{holder.address}</td>
+                        <td>{holder.n}</td>
+                        <td>{cumulativePercentage}%</td> {/* Display cumulative percentage */}
+                        <td>{holder.max_send_height}</td>
+                        <td>{holder.max_receive_height}</td>
+                      </tr>
+                    );
+                  });
+                })()}
               </tbody>
             </table>
         </div>
