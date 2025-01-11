@@ -29,6 +29,7 @@ const App = () => {
   const [floorPrice, setFloorPrice] = useState("");
   // State to track if Recommend Me triggered the query
   const [recommendTriggered, setRecommendTriggered] = useState(false);
+  const [showTopHolders, setShowTopHolders] = useState(false);
 
   const [darkMode, setDarkMode] = useState(() => {
     // Retrieve dark mode preference from localStorage, default to false if not set
@@ -259,6 +260,10 @@ const App = () => {
       apiUrl += `&block_start=${block_start}&block_end=${block_end}`;
     }
 
+    if(showTopHolders) {
+      apiUrl += `&include_top_holders=true`;
+    }
+
     setLoading(true);
 
     // Update queried rarities to reflect the current selection
@@ -309,7 +314,7 @@ const App = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [selectedRarities]);
+  }, [selectedRarities, showTopHolders]);
 
   // Monitor state changes and make the API request
   useEffect(() => {
@@ -463,6 +468,24 @@ const App = () => {
         >
           Clear
         </button>
+      </div>
+
+      {/* Add Show Top Holders Checkbox */}
+      <div>
+        <label style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <input
+            type="checkbox"
+            checked={showTopHolders}
+            onChange={(e) => setShowTopHolders(e.target.checked)}
+            style={{
+              transform: "scale(1.2)", // Make it visually appealing
+              marginRight: "5px",
+            }}
+          />
+          <span className={darkMode ? "text-light" : "text-dark"}>
+            Show Top Holders
+          </span>
+        </label>
       </div>
 
       {loading && (
@@ -748,6 +771,42 @@ const App = () => {
             </div>
           </div>
         </>
+      )}
+
+      {apiResults?.top_seq_holders?.length > 0 && (
+        <div className="my-4">
+          <h5 className={darkMode ? "text-light" : "text-dark"}>
+            Top Holders (Found)
+          </h5>
+          <ul
+            style={{
+              listStyle: "none",
+              backgroundColor: darkMode ? "#2A2D34" : "#F8F9FA",
+              borderRadius: "8px",
+              padding: "15px",
+              color: darkMode ? "#FFFFFF" : "#000000",
+            }}
+          >
+            {apiResults.top_seq_holders.map((holder, index) => (
+              <li
+                key={index}
+                style={{
+                  borderBottom: index < apiResults.top_seq_holders.length - 1 ? "1px solid #ccc" : "none",
+                  paddingBottom: "10px",
+                  marginBottom: "10px",
+                }}
+              >
+                <strong>Address:</strong> {holder.address}
+                <br />
+                <strong>Quantity:</strong> {holder.n}
+                <br />
+                <strong>Max Sent Height:</strong> {holder.max_send_height}
+                <br />
+                <strong>Max Received Height:</strong> {holder.max_receive_height}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
 
       {/* Query History Table */}
