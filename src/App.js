@@ -39,6 +39,10 @@ const App = () => {
     JSON.parse(localStorage.getItem("showTopHoldersFound")) || false
   );
 
+  const [showFeelingLucky, setShowFeelingLucky] = useState(
+    JSON.parse(localStorage.getItem("showFeelingLucky")) ?? true
+  );
+
   const [darkMode, setDarkMode] = useState(() => {
     // Retrieve dark mode preference from localStorage, default to false if not set
     return localStorage.getItem("darkMode") === "true";
@@ -84,6 +88,12 @@ const App = () => {
     const value = event.target.checked;
     setShowTopHoldersFound(value);
     localStorage.setItem("showTopHoldersFound", JSON.stringify(value));
+  };
+
+  const handleShowFeelingLuckyChange = (event) => {
+    const value = event.target.checked;
+    setShowFeelingLucky(value);
+    localStorage.setItem("showFeelingLucky", JSON.stringify(value));
   };
 
   // Format numbers for readability
@@ -496,7 +506,7 @@ const App = () => {
                 minWidth: "200px",
               }}
             >
-              <label className="d-flex align-items-center mb-2">
+              <label className="d-flex align-items-center mb-1">
                 <input
                   type="checkbox"
                   checked={showTopHolders}
@@ -505,7 +515,7 @@ const App = () => {
                 />
                 Show Top Holders
               </label>
-              <label className="d-flex align-items-center">
+              <label className="d-flex align-items-center mb-1">
                 <input
                   type="checkbox"
                   checked={showTopHoldersFound}
@@ -513,6 +523,15 @@ const App = () => {
                   className="me-2"
                 />
                 Show Top Holders (Found)
+              </label>
+              <label className="d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  checked={showFeelingLucky}
+                  onChange={handleShowFeelingLuckyChange}
+                  className="me-2"
+                />
+                Show Feeling Lucky
               </label>
             </div>
           )}
@@ -544,12 +563,14 @@ const App = () => {
         >
           Query
         </button>
-        <button
-          className="btn btn-success mt-3 me-2"
-          onClick={handleRecommendMeClick}
-        >
-          Feelin' Lucky
-        </button>
+        {showFeelingLucky && (
+          <button
+            className="btn btn-success mt-3 me-2"
+            onClick={handleRecommendMeClick}
+          >
+            Feelin' Lucky
+          </button>
+        )}
         <button
           className="btn btn-secondary mt-3"
           onClick={handleClearClick}
