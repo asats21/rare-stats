@@ -54,6 +54,9 @@ const App = () => {
     return storedValue === null ? true : storedValue === "true";
   });
 
+  const [collapseTopHolders, setCollapseTopHolders] = useState(false);
+  const [collapseTopHoldersFound, setCollapseTopHoldersFound] = useState(false);
+
   // Apply dark mode class to the body on state change
   useEffect(() => {
     if (darkMode) {
@@ -907,74 +910,119 @@ const App = () => {
 
       {showTopHoldersFound && apiResults?.top_seq_holders?.length > 0 && (
         <div className="my-4">
-          <h3 className={darkMode ? "text-light" : "text-dark"}>
-            Top Holders (Found)
-          </h3>
-          <div
-            style={{
-              overflowX: "auto", // Enable horizontal scrolling if needed
-              width: "100%",     // Ensure the container fits within the screen width
-            }}
-          >
-            <table
-              className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
-              style={{
-                border: darkMode ? "1px solid #444" : "1px solid #ddd",
-                minWidth: "800px", // Ensure the table is readable on smaller screens
-              }}
+          
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "10px" }}>
+            <h3 className={darkMode ? "text-light" : "text-dark"} style={{ margin: 0 }}>
+              Top Holders (Found)
+            </h3>
+            <label
+              className="switch-container"
+              style={{ display: "flex", alignItems: "center", gap: "5px" }}
             >
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Address</th>
-                <th>Quantity</th>
-                <th>Cumulative % (Fnd)</th>
-                <th>Cumulative %</th>
-                <th>Max Sent Height</th>
-                <th>Max Received Height</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(() => {
-                let cumulativeSum = 0; // Initialize cumulative sum
-                let cumulativeSumTotal = 0; // Initialize cumulative sum total
-                const nSeq = apiResults.n_seq; // Total `n_seq` value
-                const nTotal = apiResults.n_total; // Total `n_total` value
-                return apiResults.top_seq_holders.map((holder, index) => {
-                  cumulativeSum += holder.n; // Add the current holder's quantity to the cumulative sum
-                  const cumulativePercentage = ((cumulativeSum / nSeq) * 100).toFixed(2); // Calculate cumulative percentage
-                  cumulativeSumTotal += holder.n;
-                  const cumulativePercentageTotal = ((cumulativeSumTotal / nTotal) * 100).toFixed(2);
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{holder.address}</td>
-                      <td>{holder.n}</td>
-                      <td>{cumulativePercentage}%</td> {/* Display cumulative percentage */}
-                      <td>{cumulativePercentageTotal}%</td> {/* Display cumulative percentage Total*/}
-                      <td>{holder.max_send_height}</td>
-                      <td>{holder.max_receive_height}</td>
-                    </tr>
-                  );
-                });
-              })()}
-            </tbody>
-            </table>
+              <span className={darkMode ? "text-light" : "text-dark"} style={{ fontSize: "1rem" }}>
+                {collapseTopHoldersFound ? "Show" : "Hide"}
+              </span>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={!collapseTopHoldersFound}
+                  onChange={() => setCollapseTopHoldersFound((prev) => !prev)}
+                />
+                <span className="slider"></span>
+              </label>
+            </label>
           </div>
+          
+          {!collapseTopHoldersFound && (
+            <div
+              style={{
+                overflowX: "auto", // Enable horizontal scrolling if needed
+                width: "100%",     // Ensure the container fits within the screen width
+              }}
+              className="mt-3"
+            >
+              <table
+                className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
+                style={{
+                  border: darkMode ? "1px solid #444" : "1px solid #ddd",
+                  minWidth: "800px", // Ensure the table is readable on smaller screens
+                }}
+              >
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Address</th>
+                  <th>Quantity</th>
+                  <th>Cumulative % (Fnd)</th>
+                  <th>Cumulative %</th>
+                  <th>Max Sent Height</th>
+                  <th>Max Received Height</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(() => {
+                  let cumulativeSum = 0; // Initialize cumulative sum
+                  let cumulativeSumTotal = 0; // Initialize cumulative sum total
+                  const nSeq = apiResults.n_seq; // Total `n_seq` value
+                  const nTotal = apiResults.n_total; // Total `n_total` value
+                  return apiResults.top_seq_holders.map((holder, index) => {
+                    cumulativeSum += holder.n; // Add the current holder's quantity to the cumulative sum
+                    const cumulativePercentage = ((cumulativeSum / nSeq) * 100).toFixed(2); // Calculate cumulative percentage
+                    cumulativeSumTotal += holder.n;
+                    const cumulativePercentageTotal = ((cumulativeSumTotal / nTotal) * 100).toFixed(2);
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{holder.address}</td>
+                        <td>{holder.n}</td>
+                        <td>{cumulativePercentage}%</td> {/* Display cumulative percentage */}
+                        <td>{cumulativePercentageTotal}%</td> {/* Display cumulative percentage Total*/}
+                        <td>{holder.max_send_height}</td>
+                        <td>{holder.max_receive_height}</td>
+                      </tr>
+                    );
+                  });
+                })()}
+              </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
 
       {showTopHolders && apiResults?.top_holders?.length > 0 && (
         <div className="my-4">
-          <h3 className={darkMode ? "text-light" : "text-dark"}>
-            Top Holders
-          </h3>
+          
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "10px" }}>
+            <h3 className={darkMode ? "text-light" : "text-dark"} style={{ margin: 0 }}>
+              Top Holders
+            </h3>
+            <label
+              className="switch-container"
+              style={{ display: "flex", alignItems: "center", gap: "5px" }}
+            >
+              <span className={darkMode ? "text-light" : "text-dark"} style={{ fontSize: "1rem" }}>
+                {collapseTopHolders ? "Show" : "Hide"}
+              </span>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={!collapseTopHolders}
+                  onChange={() => setCollapseTopHolders((prev) => !prev)}
+                />
+                <span className="slider"></span>
+              </label>
+            </label>
+          </div>
+
           <div
             style={{
               overflowX: "auto", // Enable horizontal scrolling if needed
               width: "100%",     // Ensure the container fits within the screen width
             }}
+            className="mt-3"
           >
+            {!collapseTopHolders && (
             <table
               className={`table ${darkMode ? "table-dark" : "table-light"} table-striped`}
               style={{
@@ -1013,6 +1061,7 @@ const App = () => {
                 })()}
               </tbody>
             </table>
+            )}
           </div>
         </div>
       )}
