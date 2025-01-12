@@ -443,7 +443,7 @@ const App = () => {
   const sortedQueries = savedQueries.sort((a, b) => b.satScore.score - a.satScore.score);
 
   return (
-    <div className={`container mt-2 mt-md-4 ${darkMode ? 'dark-mode-container' : ''}`}>
+    <div className={`container mt-3 mt-md-4 ${darkMode ? 'dark-mode-container' : ''}`}>
       {/* Header with "Select Rarities" and Settings Icon */}
       <div
         className="d-flex justify-content-between align-items-center mb-4"
