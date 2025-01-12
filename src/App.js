@@ -409,7 +409,7 @@ const App = () => {
         </div>
 
       {/* Add small block for mobile */}
-      {category === "Epochs" && (
+      {category === "Halving epochs" && (
         <div
           className="d-block d-md-none mt-2"
           style={{
