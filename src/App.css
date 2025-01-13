@@ -120,3 +120,18 @@ input:checked + .slider:before {
 .slider:before {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+.trailing-zeroes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between the label and input */
+  margin-top: 10px; /* Space from the checkboxes above */
+}
+
+.trailing-zeroes-container input {
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-width: 80px; /* Adjust width as needed */
+}

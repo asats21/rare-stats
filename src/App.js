@@ -31,6 +31,9 @@ const App = () => {
   // State to track if Recommend Me triggered the query
   const [recommendTriggered, setRecommendTriggered] = useState(false);
 
+  const [trailingZeroes, setTrailingZeroes] = useState(""); // For the number input
+  const isUncommonSelected = selectedRarities.includes("uncommon"); // Check if "Uncommon" is selected
+
   const [showSettings, setShowSettings] = useState(false);
   const [showTopHolders, setShowTopHolders] = useState(
     JSON.parse(localStorage.getItem("showTopHolders")) || false
@@ -301,7 +304,9 @@ const App = () => {
       ? (parseInt(selectedEpochs[selectedEpochs.length - 1].replace("epoch", "")) + 1) * 210000
       : undefined;
 
-    const query = selectedRarities.filter((item) => !item.startsWith("epoch")).join(",");
+    const query = selectedRarities.filter(
+      (item) => !item.startsWith("epoch") && !item.startsWith("trailing")
+    ).join(",");
     let apiUrl = `https://api.deezy.io/v1/sat-hunting/circulation?rarity=${query}`;
     if (block_start !== undefined && block_end !== undefined) {
       apiUrl += `&block_start=${block_start}&block_end=${block_end}`;
@@ -311,10 +316,16 @@ const App = () => {
       apiUrl += `&include_top_holders=true`;
     }
 
+    if(isUncommonSelected && trailingZeroes ) {
+      apiUrl += `&trailing_0s=` + trailingZeroes;
+    }
+
     setLoading(true);
 
-    // Update queried rarities to reflect the current selection
-    setQueriedRarities([...selectedRarities]);
+    setQueriedRarities([
+      ...selectedRarities.filter((item) => !item.startsWith("trailing_0s")), // Remove old trailing_0s values
+      ...(isUncommonSelected && trailingZeroes ? [`trailing_0s_${trailingZeroes}`] : []), // Add new trailing_0s if applicable
+    ]);
 
     fetch(apiUrl)
       .then((response) => response.json())
@@ -330,7 +341,10 @@ const App = () => {
           const satScore = calculateSatScore(data.data.n_total, data.data.n_mined, data.data.n_365, data.data.n_seq, data.data.n_seq_holders);
 
           if(data.data.n_total > 0 && satScore.score) {
-            const sortedRarities = [...selectedRarities].sort(); // Create a sorted copy
+            const sortedRarities = [
+              ...selectedRarities,
+              ...(isUncommonSelected && trailingZeroes ? [`trailing_0s_${trailingZeroes}`] : []), // Add new trailing_0s if applicable
+            ].sort(); // Create a sorted copy
 
             const queryData = {
               query: sortedRarities, // Use the sorted rarities here
@@ -361,7 +375,7 @@ const App = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [selectedRarities, showTopHolders, showTopHoldersFound]);
+  }, [selectedRarities, showTopHolders, showTopHoldersFound, isUncommonSelected, trailingZeroes]);
 
   // Monitor state changes and make the API request
   useEffect(() => {
@@ -419,6 +433,27 @@ const App = () => {
               </label>
             </div>
           ))}
+
+          {category === "Rodarmor Rarity" && isUncommonSelected && (
+            <div className="trailing-zeroes-container">
+              <label htmlFor="trailingZeroes">Trailing Zeroes</label>
+              <input
+                type="number"
+                min="1"
+                max="14"
+                value={trailingZeroes}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "" || (value >= 1 && value <= 14)) {
+                    setTrailingZeroes(value);
+                  }
+                }}
+                placeholder="1-14"
+                id="trailingZeroes"
+              />
+            </div>
+          )}
+
         </div>
 
       {/* Add small block for mobile */}
