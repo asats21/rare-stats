@@ -31,6 +31,8 @@ const App = () => {
   // State to track if Recommend Me triggered the query
   const [recommendTriggered, setRecommendTriggered] = useState(false);
 
+  const [blockNumber, setBlockNumber] = useState('');
+
   const [trailingZeroes, setTrailingZeroes] = useState(""); // For the number input
   const isUncommonSelected = selectedRarities.includes("uncommon"); // Check if "Uncommon" is selected
 
@@ -320,11 +322,18 @@ const App = () => {
       apiUrl += `&trailing_0s=` + trailingZeroes;
     }
 
+    if (blockNumber) {
+      apiUrl += `&block=` + blockNumber;
+    }
+
     setLoading(true);
 
     setQueriedRarities([
-      ...selectedRarities.filter((item) => !item.startsWith("trailing_0s")), // Remove old trailing_0s values
+      ...selectedRarities
+        .filter((item) => !item.startsWith("trailing_0s"))  // Remove old trailing_0s values
+        .filter((item) => !item.startsWith("blocknum_")),      // Remove block number
       ...(isUncommonSelected && trailingZeroes ? [`trailing_0s_${trailingZeroes}`] : []), // Add new trailing_0s if applicable
+      ...(blockNumber ? [`blocknum_${blockNumber}`] : []), // Add new block number if applicable
     ]);
 
     fetch(apiUrl)
@@ -344,6 +353,7 @@ const App = () => {
             const sortedRarities = [
               ...selectedRarities,
               ...(isUncommonSelected && trailingZeroes ? [`trailing_0s_${trailingZeroes}`] : []), // Add new trailing_0s if applicable
+              ...(blockNumber ? [`blocknum_${blockNumber}`] : []), // Add new block number if applicable
             ].sort(); // Create a sorted copy
 
             const queryData = {
@@ -375,7 +385,7 @@ const App = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [selectedRarities, showTopHolders, showTopHoldersFound, isUncommonSelected, trailingZeroes]);
+  }, [selectedRarities, showTopHolders, showTopHoldersFound, isUncommonSelected, trailingZeroes, blockNumber]);
 
   // Monitor state changes and make the API request
   useEffect(() => {
@@ -611,6 +621,20 @@ const App = () => {
         {renderCategory("Palindrome", rarities.Palindrome, "#8ECAE6")} {/* Sky Blue */}
         {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
         {renderCategory("Halving epochs", rarities.Epochs, "#FFB703")} {/* Epoch color */}
+      </div>
+
+      <div className="form-group mb-3">
+          <label htmlFor="blockNumber" className="form-label">Block Number</label>
+          <input
+            type="number"
+            id="blockNumber"
+            className="form-control"
+            placeholder="Enter block number (0 - 1,000,000)"
+            min="0"
+            max="1000000"
+            value={blockNumber}
+            onChange={(e) => setBlockNumber(e.target.value)}
+          />
       </div>
 
       <div className="text-center mb-4">
