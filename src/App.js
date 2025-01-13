@@ -43,6 +43,10 @@ const App = () => {
     JSON.parse(localStorage.getItem("showFeelingLucky")) ?? true
   );
 
+  const [showSatScoreComponents, setShowSatScoreComponents] = useState(
+    JSON.parse(localStorage.getItem("showSatScoreComponents")) || false
+  );
+
   const [darkMode, setDarkMode] = useState(() => {
     // Retrieve dark mode preference from localStorage, default to false if not set
     return localStorage.getItem("darkMode") === "true";
@@ -97,6 +101,12 @@ const App = () => {
     const value = event.target.checked;
     setShowFeelingLucky(value);
     localStorage.setItem("showFeelingLucky", JSON.stringify(value));
+  };
+
+  const handleShowSatScoreComponentsChange = (event) => {
+    const value = event.target.checked;
+    setShowSatScoreComponents(value);
+    localStorage.setItem("showSatScoreComponents", JSON.stringify(value));
   };
 
   // Format numbers for readability
@@ -526,6 +536,15 @@ const App = () => {
                   className="me-2"
                 />
                 Show Top Holders (Found)
+              </label>
+              <label className="d-flex align-items-center mb-1">
+                <input
+                  type="checkbox"
+                  checked={showSatScoreComponents}
+                  onChange={handleShowSatScoreComponentsChange}
+                  className="me-2"
+                />
+                Show Sat Score Components
               </label>
               <label className="d-flex align-items-center">
                 <input
@@ -1093,9 +1112,13 @@ const App = () => {
               <th>H<sub>ttl</sub></th>
               <th>%Actv<sub>365</sub></th>
               <th>%Fnd</th>
-              <th>S<sub>ci</sub></th>
-              <th>AF<sub>ci</sub></th>
-              <th>H<sub>ci</sub></th>
+              {showSatScoreComponents && (
+                <>
+                <th>S<sub>ci</sub></th>
+                <th>AF<sub>ci</sub></th>
+                <th>H<sub>ci</sub></th>
+                </>
+              )}
               <th>Score</th>
             </tr>
           </thead>
@@ -1111,9 +1134,13 @@ const App = () => {
                 <td>{formatNumber(queryData.result.n_total_holders)}</td>
                 <td>{((queryData.result.n_365 / queryData.result.n_mined) * 100).toFixed(1)}%</td>
                 <td>{((queryData.result.n_seq / queryData.result.n_mined) * 100).toFixed(1)}%</td>
-                <td>{queryData.satScore.Sci.toFixed(2)}</td>
-                <td>{queryData.satScore.AFci.toFixed(2)}</td>
-                <td>{queryData.satScore.Hci.toFixed(2)}</td>
+                {showSatScoreComponents && (
+                  <>
+                  <td>{queryData.satScore.Sci.toFixed(2)}</td>
+                  <td>{queryData.satScore.AFci.toFixed(2)}</td>
+                  <td>{queryData.satScore.Hci.toFixed(2)}</td>
+                  </>
+                )}
                 <td>{queryData.satScore.power_transformed_score.toFixed(2)}</td>
               </tr>
             ))}
