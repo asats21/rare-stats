@@ -464,6 +464,22 @@ const App = () => {
             </div>
           )}
 
+          {category === "Other" && (
+            <div className="block-number-container">
+              <label htmlFor="blockNumber" className="d-block">Block Number</label>
+              <input
+                type="number"
+                id="blockNumber"
+                className="form-control"
+                placeholder="Enter block number (0 - 1,000,000)"
+                min="0"
+                max="1000000"
+                value={blockNumber}
+                onChange={(e) => setBlockNumber(e.target.value)}
+              />
+            </div>
+          )}
+
         </div>
 
       {/* Add small block for mobile */}
@@ -621,20 +637,6 @@ const App = () => {
         {renderCategory("Palindrome", rarities.Palindrome, "#8ECAE6")} {/* Sky Blue */}
         {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
         {renderCategory("Halving epochs", rarities.Epochs, "#FFB703")} {/* Epoch color */}
-      </div>
-
-      <div className="form-group mb-3">
-          <label htmlFor="blockNumber" className="form-label">Block Number</label>
-          <input
-            type="number"
-            id="blockNumber"
-            className="form-control"
-            placeholder="Enter block number (0 - 1,000,000)"
-            min="0"
-            max="1000000"
-            value={blockNumber}
-            onChange={(e) => setBlockNumber(e.target.value)}
-          />
       </div>
 
       <div className="text-center mb-4">

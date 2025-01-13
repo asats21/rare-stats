@@ -135,3 +135,13 @@ input:checked + .slider:before {
   border-radius: 4px;
   max-width: 80px; /* Adjust width as needed */
 }
+
+.block-number-container {
+  display: flex;
+  flex-direction: column; /* Ensure the label and input are stacked vertically */
+  width: 100%; /* Match the width of the parent container */
+}
+
+.block-number-container input {
+  max-width: 300px; /* Optional: Limit input width for better appearance */
+}
