@@ -44,6 +44,10 @@ const App = () => {
     JSON.parse(localStorage.getItem("showTopHoldersFound")) || false
   );
 
+  const [showBlockNumberInput, setShowBlockNumberInput] = useState(
+    JSON.parse(localStorage.getItem("showBlockNumberInput")) || false
+  );
+
   const [showFeelingLucky, setShowFeelingLucky] = useState(
     JSON.parse(localStorage.getItem("showFeelingLucky")) ?? true
   );
@@ -106,6 +110,12 @@ const App = () => {
     const value = event.target.checked;
     setShowFeelingLucky(value);
     localStorage.setItem("showFeelingLucky", JSON.stringify(value));
+  };
+
+  const handleShowBlockNumberInputChange = (event) => {
+    const value = event.target.checked;
+    setShowBlockNumberInput(value);
+    localStorage.setItem("showBlockNumberInput", JSON.stringify(value));
   };
 
   const handleShowSatScoreComponentsChange = (event) => {
@@ -464,7 +474,7 @@ const App = () => {
             </div>
           )}
 
-          {category === "Other" && (
+          {category === "Other" && showBlockNumberInput && (
             <div className="block-number-container">
               <label htmlFor="blockNumber" className="d-block">Block Number</label>
               <input
@@ -606,6 +616,15 @@ const App = () => {
                   className="me-2"
                 />
                 Show Sat Score Components
+              </label>
+              <label className="d-flex align-items-center mb-1">
+                <input
+                  type="checkbox"
+                  checked={showBlockNumberInput}
+                  onChange={handleShowBlockNumberInputChange}
+                  className="me-2"
+                />
+                Show Block Number Input
               </label>
               <label className="d-flex align-items-center">
                 <input
