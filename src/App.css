@@ -207,7 +207,7 @@ input:checked + .slider:before {
 
 /* Feelin' Lucky Button */
 .feelin-lucky-button {
-  background-color: #E89A02; /* Vibrant yellow-orange */
+  background-color: #6AA8C3;
   border: none;
   color: #fff;
   padding: 8px 16px;
@@ -219,13 +219,13 @@ input:checked + .slider:before {
 
 .feelin-lucky-button:hover,
 .feelin-lucky-button:focus {
-  background-color: #E89A02; 
-  box-shadow: 0 0 10px #FFB703;
+  background-color: #6AA8C3; 
+  box-shadow: 0 0 10px #8ECAE6;
 }
 
 /* Clear Button */
 .clear-button {
-  background-color: #6AA8C3;
+  background-color: #E89A02;
   border: none;
   color: #fff;
   padding: 8px 16px;
@@ -237,13 +237,13 @@ input:checked + .slider:before {
 
 .clear-button:hover,
 .clear-button:focus {
-  background-color: #6AA8C3;
-  box-shadow: 0 0 10px #8ECAE6;
+  background-color: #E89A02;
+  box-shadow: 0 0 10px #FFB703;
 }
 
 /* Clear Query History Button */
 .clear-query-history-button {
-  background-color: #6AA8C3;
+  background-color: #EF476F;
   border: none;
   color: #fff;
   padding: 8px 16px;
@@ -255,6 +255,6 @@ input:checked + .slider:before {
 
 .clear-query-history-button:hover,
 .clear-query-history-button:focus {
-  background-color: #6AA8C3;
-  box-shadow: 0 0 10px #8ECAE6;
+  background-color: #EF476F;
+  box-shadow: 0 0 10px #EF476F;
 }
