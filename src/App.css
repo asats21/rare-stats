@@ -199,8 +199,7 @@ input:checked + .slider:before {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.query-button:hover,
-.query-button:focus {
+.query-button:hover {
   background-color: #037F5E;
   box-shadow: 0 0 10px #049F76; /* Subtle neon glow */
 }
@@ -217,8 +216,7 @@ input:checked + .slider:before {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.feelin-lucky-button:hover,
-.feelin-lucky-button:focus {
+.feelin-lucky-button:hover {
   background-color: #6AA8C3; 
   box-shadow: 0 0 10px #8ECAE6;
 }
@@ -235,8 +233,7 @@ input:checked + .slider:before {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.clear-button:hover,
-.clear-button:focus {
+.clear-button:hover {
   background-color: #E89A02;
   box-shadow: 0 0 10px #FFB703;
 }
@@ -253,8 +250,7 @@ input:checked + .slider:before {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.clear-query-history-button:hover,
-.clear-query-history-button:focus {
+.clear-query-history-button:hover {
   background-color: #E05C5C; /* Slightly darker red for hover */
   box-shadow: 0 0 10px #F86D6D; /* Subtle glow effect */
 }
