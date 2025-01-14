@@ -456,8 +456,9 @@ const App = () => {
 
           {category === "Rodarmor Rarity" && isUncommonSelected && (
             <div className="trailing-zeroes-container">
-              <label htmlFor="trailingZeroes">Trailing Zeroes</label>
+              <label htmlFor="trailingZeroes" className="trailing-zeroes-input-label">Trailing Zeroes</label>
               <input
+                className="trailing-zeroes-input"
                 type="number"
                 min="1"
                 max="14"
