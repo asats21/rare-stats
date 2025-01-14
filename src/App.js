@@ -57,8 +57,13 @@ const App = () => {
   );
 
   const [darkMode, setDarkMode] = useState(() => {
-    // Retrieve dark mode preference from localStorage, default to false if not set
-    return localStorage.getItem("darkMode") === "true";
+    // Retrieve dark mode preference from localStorage, default to true if not set
+    const storedPreference = localStorage.getItem("darkMode");
+    if (storedPreference === null) {
+      return true; // Default to true if no preference is stored
+    }
+    // Parse the stored preference and return it, otherwise default to true
+    return storedPreference === "true";
   });
 
   const [showSatScore, setShowSatScore] = useState(() => {
