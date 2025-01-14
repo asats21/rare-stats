@@ -659,23 +659,23 @@ const App = () => {
         {renderCategory("Halving epochs", rarities.Epochs, "#FFB703")} {/* Epoch color */}
       </div>
 
-      <div className="text-center mb-4">
+      <div className="text-center my-4">
         <button
-          className="btn btn-primary mt-3 me-2"
+          className="query-button"
           onClick={handleQueryClick}
         >
           Query
         </button>
         {showFeelingLucky && (
           <button
-            className="btn btn-success mt-3 me-2"
+            className="feelin-lucky-button ms-2"
             onClick={handleRecommendMeClick}
           >
             Feelin' Lucky
           </button>
         )}
         <button
-          className="btn btn-secondary mt-3"
+          className="clear-button ms-2"
           onClick={handleClearClick}
         >
           Clear
@@ -1233,7 +1233,7 @@ const App = () => {
       {sortedQueries.length > 0 && (
         <div className="text-center mt-3">
           <button
-            className="btn btn-danger"
+            className="clear-query-history-button"
             onClick={() => {
               localStorage.removeItem("queries");
               setApiResults(null); // Clear the API results state

@@ -186,3 +186,75 @@ input:checked + .slider:before {
 .block-input-field:focus {
   border-color: #f0f; /* Highlight border color on focus */
 }
+
+/* Query Button */
+.query-button {
+  background-color: #037F5E;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.query-button:hover,
+.query-button:focus {
+  background-color: #037F5E;
+  box-shadow: 0 0 10px #049F76; /* Subtle neon glow */
+}
+
+/* Feelin' Lucky Button */
+.feelin-lucky-button {
+  background-color: #E89A02; /* Vibrant yellow-orange */
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feelin-lucky-button:hover,
+.feelin-lucky-button:focus {
+  background-color: #E89A02; 
+  box-shadow: 0 0 10px #FFB703;
+}
+
+/* Clear Button */
+.clear-button {
+  background-color: #6AA8C3;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clear-button:hover,
+.clear-button:focus {
+  background-color: #6AA8C3;
+  box-shadow: 0 0 10px #8ECAE6;
+}
+
+/* Clear Query History Button */
+.clear-query-history-button {
+  background-color: #6AA8C3;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clear-query-history-button:hover,
+.clear-query-history-button:focus {
+  background-color: #6AA8C3;
+  box-shadow: 0 0 10px #8ECAE6;
+}
