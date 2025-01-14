@@ -136,12 +136,37 @@ input:checked + .slider:before {
   max-width: 80px; /* Adjust width as needed */
 }
 
-.block-number-container {
-  display: flex;
-  flex-direction: column; /* Ensure the label and input are stacked vertically */
-  width: 100%; /* Match the width of the parent container */
+/* Block Input Container */
+.block-input-container {
+  display: flex; /* Flexbox to align label and input on the same line */
+  justify-content: flex-start; /* Push label and input to the left */
+  align-items: center; /* Align label and input vertically */
+  width: 100%; /* Span full width */
+  margin-top: 10px; /* Add spacing between the block input and above content */
 }
 
-.block-number-container input {
-  max-width: 300px; /* Optional: Limit input width for better appearance */
+/* Block Input Label */
+.block-input-label {
+  font-size: 1rem; /* Match the theme font size */
+  color: #c38bfa; /* Purple color for consistency */
+  margin-right: 10px; /* Spacing between label and input */
+}
+
+/* Block Input Field */
+.block-input-field {
+  width: 100%; /* Make it as wide as its container */
+  max-width: 400px; /* Increase the maximum width to allow more space */
+  padding: 8px 12px; /* Maintain good padding for usability */
+  font-size: 1rem; /* Match theme font size */
+  color: #fff; /* White text color */
+  background-color: #000; /* Black background to match the theme */
+  border: 2px solid #c38bfa; /* Purple border to fit the theme */
+  border-radius: 8px; /* Rounded corners */
+  outline: none; /* Remove default focus outline */
+  transition: border-color 0.3s ease-in-out; /* Smooth transition for border color on focus */
+}
+
+/* Input Focus Style */
+.block-input-field:focus {
+  border-color: #f0f; /* Highlight border color on focus */
 }

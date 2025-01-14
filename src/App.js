@@ -475,12 +475,12 @@ const App = () => {
           )}
 
           {category === "Other" && showBlockNumberInput && (
-            <div className="block-number-container">
-              <label htmlFor="blockNumber" className="d-block">Block Number</label>
+            <div className="block-input-container">
+              <label htmlFor="blockNumber" className="block-input-label">Block Number</label>
               <input
                 type="number"
                 id="blockNumber"
-                className="form-control"
+                className="block-input-field"
                 placeholder="Enter block number (0 - 1,000,000)"
                 min="0"
                 max="1000000"
