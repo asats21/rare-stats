@@ -258,3 +258,19 @@ input:checked + .slider:before {
   background-color: #EF476F;
   box-shadow: 0 0 10px #EF476F;
 }
+
+/* Default input styles for light mode */
+.block-input-field,
+.trailing-zeroes-input {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text for visibility */
+  border: 2px solid #ccc; /* Light gray border */
+}
+
+/* Input styles for dark mode */
+body.dark-mode .block-input-field,
+body.dark-mode .trailing-zeroes-input {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text for visibility */
+  border: 2px solid #c38bfa; /* Match theme border color */
+}
