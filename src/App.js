@@ -769,7 +769,7 @@ const App = () => {
           >
             {[
               { label: "Total", value: apiResults.n_total },
-              { label: "Mined", value: apiResults.n_mined },
+              { label: "Mined", value: apiResults.n_mined, percentage_mined: true },
               { label: "Active Epoch", value: apiResults.n_epoch, percentage: true },
               { label: "Active 365 Days", value: apiResults.n_365, percentage: true },
               { label: "Found", value: apiResults.n_seq, percentage: true },
@@ -781,6 +781,7 @@ const App = () => {
               const value = item.label === "Updated At" ? item.value : parseInt(item.value, 10); // Handle non-numeric values
               const marketCap = floorPrice && !item.noMC && value > 0 ? value * floorPrice : null; // Skip MC for specified cards
               const percentage = item.percentage && apiResults.n_mined > 0 ? ((item.value/apiResults.n_mined)*100).toFixed(1) : null; // Percentage
+              const percentage_mined = item.percentage_mined && apiResults.n_total > 0 ? ((item.value/apiResults.n_total)*100).toFixed(1) : null; // Percentage Mined
               return (
                 <div
                   key={index}
@@ -809,7 +810,7 @@ const App = () => {
                   </h5>
                   <p style={{ fontSize: "1.2rem", margin: 0 }}>
                     {item.label === "Updated At" ? value : formatNumber(value)}
-                    {percentage && (
+                    {(percentage || percentage_mined) && (
                       <span
                         className="percentage-text"
                         style={{
@@ -818,7 +819,7 @@ const App = () => {
                           marginLeft: "4px",   // Add spacing
                         }}
                       >
-                        ({formatNumber(percentage)}%)
+                        ({formatNumber(percentage ? percentage : percentage_mined)}%)
                       </span>
                     )}
                     {marketCap && marketCap > 0 && (
