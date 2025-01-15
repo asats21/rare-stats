@@ -121,6 +121,29 @@ input:checked + .slider:before {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Default input styles for light mode */
+.block-input-field,
+.trailing-zeroes-input {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text for visibility */
+  border: 2px solid #ccc; /* Light gray border */
+}
+
+/* Input styles for dark mode */
+body.dark-mode .block-input-field {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text for visibility */
+  border: 2px solid #c38bfa; /* Match theme border color */
+}
+
+body.dark-mode .trailing-zeroes-input {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text for visibility */
+  border: 2px solid #EF476F; /* Match theme border color */
+}
+
+/* Trailing Zeroes Input Container */
+
 .trailing-zeroes-container {
   display: flex;
   align-items: center;
@@ -140,16 +163,13 @@ input:checked + .slider:before {
 }
 
 .trailing-zeroes-input {
-  color: #fff; /* White text color */
-  background-color: #000; /* Black background to match the theme */
-  border: 2px solid #EF476F; /* Purple border to fit the theme */
   border-radius: 8px; /* Rounded corners */
   outline: none; /* Remove default focus outline */
   transition: border-color 0.3s ease-in-out; /* Smooth transition for border color on focus */
 }
 
 .trailing-zeroes-input:focus {
-  border-color: #D90429; /* A deep and bold red for the focus state */
+  border-color: #D90429 !important; /* A deep and bold red for the focus state */
 }
 
 /* Block Input Container */
@@ -174,9 +194,6 @@ input:checked + .slider:before {
   max-width: 400px; /* Increase the maximum width to allow more space */
   padding: 8px 12px; /* Maintain good padding for usability */
   font-size: 1rem; /* Match theme font size */
-  color: #fff; /* White text color */
-  background-color: #000; /* Black background to match the theme */
-  border: 2px solid #c38bfa; /* Purple border to fit the theme */
   border-radius: 8px; /* Rounded corners */
   outline: none; /* Remove default focus outline */
   transition: border-color 0.3s ease-in-out; /* Smooth transition for border color on focus */
@@ -184,7 +201,7 @@ input:checked + .slider:before {
 
 /* Input Focus Style */
 .block-input-field:focus {
-  border-color: #f0f; /* Highlight border color on focus */
+  border-color: #f0f !important; /* Highlight border color on focus */
 }
 
 /* Query Button */
@@ -253,20 +270,4 @@ input:checked + .slider:before {
 .clear-query-history-button:hover {
   background-color: #E05C5C; /* Slightly darker red for hover */
   box-shadow: 0 0 10px #F86D6D; /* Subtle glow effect */
-}
-
-/* Default input styles for light mode */
-.block-input-field,
-.trailing-zeroes-input {
-  background-color: #fff; /* White background */
-  color: #000; /* Black text for visibility */
-  border: 2px solid #ccc; /* Light gray border */
-}
-
-/* Input styles for dark mode */
-body.dark-mode .block-input-field,
-body.dark-mode .trailing-zeroes-input {
-  background-color: #000; /* Black background */
-  color: #fff; /* White text for visibility */
-  border: 2px solid #c38bfa; /* Match theme border color */
 }
