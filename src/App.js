@@ -1192,10 +1192,12 @@ const App = () => {
               <th>Query</th>
               <th>Supply</th>
               <th>Mined</th>
+              <th>Actv<sub>E</sub></th>
               <th>Actv<sub>365</sub></th>
               <th>Found</th>
               <th>H<sub>fnd</sub></th>
               <th>H<sub>ttl</sub></th>
+              <th>%Actv<sub>E</sub></th>
               <th>%Actv<sub>365</sub></th>
               <th>%Fnd</th>
               {showSatScoreComponents && (
@@ -1214,10 +1216,12 @@ const App = () => {
                 <td>{queryData.query.join(", ")}</td>
                 <td>{formatNumber(queryData.result.n_total)}</td>
                 <td>{formatNumber(queryData.result.n_mined)}</td>
+                <td>{formatNumber(queryData.result.n_epoch)}</td>
                 <td>{formatNumber(queryData.result.n_365)}</td>
                 <td>{formatNumber(queryData.result.n_seq)}</td>
                 <td>{formatNumber(queryData.result.n_seq_holders)}</td>
                 <td>{formatNumber(queryData.result.n_total_holders)}</td>
+                <td>{((queryData.result.n_epoch / queryData.result.n_mined) * 100).toFixed(1)}%</td>
                 <td>{((queryData.result.n_365 / queryData.result.n_mined) * 100).toFixed(1)}%</td>
                 <td>{((queryData.result.n_seq / queryData.result.n_mined) * 100).toFixed(1)}%</td>
                 {showSatScoreComponents && (
