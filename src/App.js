@@ -355,7 +355,16 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
-          setError(data.message);
+          const originalMessage = data.message;
+
+          console.log(originalMessage)
+
+          let message = originalMessage;
+          if(message && message.includes("could not fetch result")) {
+            message = "Your request was not found in the API cache and has been added to the queue. Please try again in a few seconds."
+          }
+
+          setError(message);
           setApiResults(null);
         } else {
           setApiResults(data.data);
