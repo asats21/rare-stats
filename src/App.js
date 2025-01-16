@@ -25,6 +25,7 @@ const App = () => {
   const [selectedRarities, setSelectedRarities] = useState([]);
   const [queriedRarities, setQueriedRarities] = useState([]);
   const [apiResults, setApiResults] = useState(null);
+  const [apiQueryUrl, setApiQueryUrl] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [floorPrice, setFloorPrice] = useState("");
@@ -71,6 +72,10 @@ const App = () => {
     const storedValue = localStorage.getItem("showSatScore");
     return storedValue === null ? true : storedValue === "true";
   });
+
+  const [devModeEnabled, setDevModeEnabled] = useState(
+    JSON.parse(localStorage.getItem("devModeEnabled")) || false
+  );
 
   const [collapseTopHolders, setCollapseTopHolders] = useState(false);
   const [collapseTopHoldersFound, setCollapseTopHoldersFound] = useState(false);
@@ -127,6 +132,12 @@ const App = () => {
     const value = event.target.checked;
     setShowSatScoreComponents(value);
     localStorage.setItem("showSatScoreComponents", JSON.stringify(value));
+  };
+
+  const handleDevModeEnabledChange = (event) => {
+    const value = event.target.checked;
+    setDevModeEnabled(value);
+    localStorage.setItem("devModeEnabled", JSON.stringify(value));
   };
 
   // Format numbers for readability
@@ -357,8 +368,6 @@ const App = () => {
         if (data.message) {
           const originalMessage = data.message;
 
-          console.log(originalMessage)
-
           let message = originalMessage;
           if(message && message.includes("could not fetch result")) {
             message = "Your request was not found in the API cache and has been added to the queue. Please try again in a few seconds."
@@ -408,6 +417,7 @@ const App = () => {
       })
       .finally(() => {
         setLoading(false);
+        setApiQueryUrl(apiUrl);
       });
   }, [selectedRarities, showTopHolders, showTopHoldersFound, isUncommonSelected, trailingZeroes, blockNumber]);
 
@@ -641,7 +651,7 @@ const App = () => {
                 />
                 Show Block Number Input
               </label>
-              <label className="d-flex align-items-center">
+              <label className="d-flex align-items-center mb-1">
                 <input
                   type="checkbox"
                   checked={showFeelingLucky}
@@ -649,6 +659,15 @@ const App = () => {
                   className="me-2"
                 />
                 Show Feeling Lucky
+              </label>
+              <label className="d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  checked={devModeEnabled}
+                  onChange={handleDevModeEnabledChange}
+                  className="me-2"
+                />
+                Enable Dev Mode
               </label>
             </div>
           )}
@@ -707,6 +726,12 @@ const App = () => {
       {error && (
         <div className="alert alert-danger">
           <strong>Error:</strong> {error}
+        </div>
+      )}
+
+      {devModeEnabled && apiQueryUrl && (
+        <div className="alert alert-warning">
+          <strong>Last Query Url:</strong> {apiQueryUrl}
         </div>
       )}
 
