@@ -430,13 +430,14 @@ const App = () => {
   }, [selectedRarities, recommendTriggered, handleQueryClick]);
 
   const renderCategory = (category, items, borderColor) => {
-    // Tooltips for epochs
-    const epochTooltips = {
+
+    const tooltips = {
       epoch0: "Jan 3, 2009 – Nov 28, 2012",  // Genesis block to first halving
       epoch1: "Nov 28, 2012 – Jul 9, 2016",  // First to second halving
       epoch2: "Jul 9, 2016 – May 11, 2020",  // Second to third halving
       epoch3: "May 11, 2020 – Apr 20, 2024", // Third to fourth halving
       epoch4: "Apr 20, 2024 – Mar 26, 2028", // Fourth to fifth halving
+      pizza: "Pizza Sats were spent in the historic 10,000 BTC for 2 Pizzas transaction which took place on May 22, 2010.  It is the first known use of Bitcoin to buy physical goods.",
     };
   
     return (
@@ -474,10 +475,10 @@ const App = () => {
                 >
                   {item}
               </label>
-              {epochTooltips[item] && 
+              {tooltips[item] && 
                 <div className="info-icon-container d-none d-md-block">
                   <FaRegQuestionCircle className="info-icon" /> {/* Use FaInfoCircle or FaCog */}
-                  <div className="tooltip">{epochTooltips[item]}</div>
+                  <div className="tooltip">{tooltips[item]}</div>
                 </div>
               }
             </div>
@@ -535,7 +536,7 @@ const App = () => {
             border: `1px solid ${borderColor}`,
           }}
         >
-          {Object.entries(epochTooltips).map(([epoch, range]) => (
+          {Object.entries(tooltips).filter(([key]) => key.startsWith("epoch")).map(([epoch, range]) => (
             <p key={epoch} style={{ margin: 0 }}>
               <strong>{epoch}:</strong> {range}
             </p>
