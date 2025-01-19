@@ -291,22 +291,15 @@ body.dark-mode .trailing-zeroes-input {
 /* Info Icon Container */
 .info-icon-container {
   position: relative;
-  margin-left: 8px; /* Space between label and icon */
+  margin-left: 4px; /* Space between label and icon */
   cursor: pointer;
 }
 
 /* Info Icon */
 .info-icon {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-color: #9D4EDD; /* Vibrant purple for the icon */
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 16px;
-  border-radius: 50%; /* Makes it circular */
+  font-size: 14px; /* Adjust size as needed */
+  color: #118AB2; /* Subtle gray-blue for the icon */
+  cursor: pointer;
 }
 
 /* Tooltip */
@@ -314,7 +307,7 @@ body.dark-mode .trailing-zeroes-input {
   visibility: hidden;
   opacity: 0;
   width: 200px; /* Adjust width as needed */
-  background-color: #333; /* Dark background for tooltip */
+  background-color: #444; /* Dark background for tooltip */
   color: #fff; /* White text for contrast */
   text-align: center;
   border-radius: 8px;
@@ -325,7 +318,7 @@ body.dark-mode .trailing-zeroes-input {
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* Softer shadow */
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 

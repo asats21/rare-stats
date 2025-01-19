@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import './App.css'; // Add a CSS file for additional styling
-import { FaCog } from "react-icons/fa"; // Install react-icons if not already installed
+import { FaCog, FaRegQuestionCircle } from "react-icons/fa"; // Install react-icons if not already installed
 
 const rarities = {
   RRI: ["uncommon", "rare", "epic"],
@@ -476,7 +476,7 @@ const App = () => {
               </label>
               {epochTooltips[item] && 
                 <div className="info-icon-container d-none d-md-block">
-                  <span className="info-icon">i</span>
+                  <FaRegQuestionCircle className="info-icon" /> {/* Use FaInfoCircle or FaCog */}
                   <div className="tooltip">{epochTooltips[item]}</div>
                 </div>
               }
