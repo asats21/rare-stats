@@ -536,7 +536,7 @@ const App = () => {
         </div>
 
       {/* Add small block for mobile */}
-      {category === "Halving epochs" && (
+      {showTooltips && category === "Halving epochs" && (
         <div
           className="d-block d-md-none mt-2"
           style={{
