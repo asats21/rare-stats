@@ -1391,7 +1391,7 @@ const App = () => {
 
       </div>
 
-      {devModeEnabled &&
+      {devModeEnabled && sortedQueries.length > 0 &&
         <DownloadButton />
       }
 
