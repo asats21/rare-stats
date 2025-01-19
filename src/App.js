@@ -460,7 +460,7 @@ const App = () => {
         </h5>
         <div className="d-flex flex-wrap">
           {items.map((item) => (
-            <div key={item} style={{ marginRight: "10px", marginBottom: "5px" }}>
+            <div key={item} style={{ marginRight: "10px", marginBottom: "5px", display: "flex", alignItems: "center" }}>
               <input
                 type="checkbox"
                 id={item}
@@ -471,10 +471,15 @@ const App = () => {
               <label
                 htmlFor={item}
                 style={{ marginLeft: "5px" }}
-                title={epochTooltips[item] || ""}
-              >
-                {item}
+                >
+                  {item}
               </label>
+              {epochTooltips[item] && 
+                <div className="info-icon-container d-none d-md-block">
+                  <span className="info-icon">i</span>
+                  <div className="tooltip">{epochTooltips[item]}</div>
+                </div>
+              }
             </div>
           ))}
 
