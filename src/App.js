@@ -73,6 +73,12 @@ const App = () => {
     return storedValue === null ? true : storedValue === "true";
   });
 
+  const [showTooltips, setShowTooltips] = useState(() => {
+    // Retrieve the state from localStorage, default to true if not set
+    const storedValue = localStorage.getItem("showTooltips");
+    return storedValue === null ? true : storedValue === "true";
+  });
+
   const [devModeEnabled, setDevModeEnabled] = useState(
     JSON.parse(localStorage.getItem("devModeEnabled")) || false
   );
@@ -132,6 +138,12 @@ const App = () => {
     const value = event.target.checked;
     setShowSatScoreComponents(value);
     localStorage.setItem("showSatScoreComponents", JSON.stringify(value));
+  };
+
+  const handleShowTooltipsChange = (event) => {
+    const value = event.target.checked;
+    setShowTooltips(value);
+    localStorage.setItem("showTooltips", JSON.stringify(value));
   };
 
   const handleDevModeEnabledChange = (event) => {
@@ -475,7 +487,7 @@ const App = () => {
                 >
                   {item}
               </label>
-              {tooltips[item] && 
+              {showTooltips && tooltips[item] && 
                 <div className="info-icon-container d-none d-md-block">
                   <FaRegQuestionCircle className="info-icon" /> {/* Use FaInfoCircle or FaCog */}
                   <div className="tooltip">{tooltips[item]}</div>
@@ -737,6 +749,15 @@ const App = () => {
                   className="me-2"
                 />
                 Show Feeling Lucky
+              </label>
+              <label className="d-flex align-items-center mb-1">
+                <input
+                  type="checkbox"
+                  checked={showTooltips}
+                  onChange={handleShowTooltipsChange}
+                  className="me-2"
+                />
+                Show Tooltips
               </label>
               <label className="d-flex align-items-center">
                 <input
