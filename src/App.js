@@ -542,6 +542,78 @@ const App = () => {
     );
   };
 
+  const convertToCSV = (data) => {
+    // Extract headers, excluding holders data and including only power_transformed_score
+    const headers = [
+      'query', 
+      'n_total', 
+      'n_mined', 
+      'n_epoch', 
+      'n_365', 
+      'n_seq', 
+      'n_inscribed', 
+      'n_seq_holders', 
+      'n_total_holders', 
+      'updated_at', 
+      'satScore'
+    ].join(';');
+
+    // Map through the data to create the CSV rows
+    const rows = data.map(item => {
+      // Join the values in the object
+      const row = [
+        item.query.join(','),  // Join multiple query items with a comma
+        item.result.n_total,
+        item.result.n_mined,
+        item.result.n_epoch,
+        item.result.n_365,
+        item.result.n_seq,
+        item.result.n_inscribed,
+        item.result.n_seq_holders,
+        item.result.n_total_holders,
+        item.result.updated_at,
+        item.satScore.power_transformed_score.toFixed(2)
+      ].join(';'); // Join values with a semicolon
+      
+      return row;
+    }).join('\n'); // Join all rows with a newline
+
+    // Combine headers and rows into a single CSV string
+    return `${headers}\n${rows}`;
+  };
+
+  const downloadCSV = () => {
+    const csvData = convertToCSV(sortedQueries);
+    
+    // Create a Blob from the CSV string
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    
+    // Create an invisible link to trigger the download
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'data.csv');  // Set the default filename
+    link.style.visibility = 'hidden';
+    
+    // Append the link to the body, click it, and remove it
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const DownloadButton = () => {
+    return (
+      <div className="text-center mt-3">
+        <button
+          className="download-csv-button"
+          onClick={downloadCSV}
+        >
+          Download CSV
+        </button>
+      </div>
+    );
+  };
+
   // Get saved queries from localStorage
   const savedQueries = JSON.parse(localStorage.getItem('queries')) || [];
 
@@ -1291,6 +1363,10 @@ const App = () => {
       )}
 
       </div>
+
+      {devModeEnabled &&
+        <DownloadButton />
+      }
 
       {/* Legal Disclaimer */}
       <footer className="mt-5 text-center text-muted">
