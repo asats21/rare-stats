@@ -448,8 +448,11 @@ const App = () => {
       epoch1: "Nov 28, 2012 – Jul 9, 2016",  // First to second halving
       epoch2: "Jul 9, 2016 – May 11, 2020",  // Second to third halving
       epoch3: "May 11, 2020 – Apr 20, 2024", // Third to fourth halving
-      epoch4: "Apr 20, 2024 – Mar 26, 2028", // Fourth to fifth halving
-      pizza: "Pizza Sats were spent in the historic 10,000 BTC for 2 Pizzas transaction which took place on May 22, 2010.  It is the first known use of Bitcoin to buy physical goods.",
+      epoch4: "Apr 20, 2024 – Mar ??, 2028", // Fourth to fifth halving
+      pizza: "Pizza Sats were used in the iconic transaction of 10,000 BTC for two pizzas on May 22, 2010. This event marks the first recorded use of Bitcoin to purchase physical goods.",
+      jpeg: "Jpeg Sats originate from what may be the first Bitcoin transaction involving an image, dated February 24, 2010.",
+      hitman: "Hitman sats are tied to a controversial transaction allegedly made by Ross Ulbricht, the founder of the Silk Road marketplace, in an attempt to hire a hitman.",
+      silkroad: "Silk Road sats were seized from the infamous marketplace and are part of the first Bitcoin auctioned off by the US Marshals on June 27, 2014.",
     };
   
     return (
