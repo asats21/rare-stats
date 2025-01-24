@@ -12,3 +12,7 @@ Note: if you encounter any strange errors while running locally or deploying, tr
 
 ## App URL
 https://asats21.github.io/rare-stats
+
+## License
+
+This project is licensed under [The Unlicense](LICENSE). This means you are free to copy, modify, and distribute the code for any purpose without restriction. See the [LICENSE](LICENSE) file for more details.
