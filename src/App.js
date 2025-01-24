@@ -453,6 +453,9 @@ const App = () => {
       jpeg: "Jpeg Sats originate from what may be the first Bitcoin transaction involving an image, dated February 24, 2010.",
       hitman: "Hitman sats are tied to a controversial transaction allegedly made by Ross Ulbricht, the founder of the Silk Road marketplace, in an attempt to hire a hitman.",
       silkroad: "Silk Road sats were seized from the infamous marketplace and are part of the first Bitcoin auctioned off by the US Marshals on June 27, 2014.",
+      rodarmor: "Rodarmor sats are sats featured in the Ordinal Bounty 3, a challenge rewarding hunters for discovering sat names based on the Google Books Ngram dataset",
+      legacy: "Legacy Sats are sats distributed in paper wallets during Casey Rodarmor's June 2022 Bitcoin workshop, months before the first Inscription.",
+      '450x': "The first Bitcoin from block 9",
     };
   
     return (
