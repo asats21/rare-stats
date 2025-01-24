@@ -1404,7 +1404,10 @@ const App = () => {
           </small>
         </p>
         <p>
-          <small>
+          <small style={{
+              'font-size': "0.7rem", 
+              opacity: "0.7;"
+          }}>
             <strong>Disclaimer:</strong> 
             This page uses data provided by the API at <a href="https://api.deezy.io" target="_blank" rel="noopener noreferrer">https://api.deezy.io</a>. 
             The data is provided "as is," and the creator of this page does not profit from its use. 

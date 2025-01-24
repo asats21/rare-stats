@@ -37,6 +37,16 @@
   }
 }
 
+a {
+  color: #6AA8C3;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #118AB2;
+  text-decoration: underline;
+}
+
 body.dark-mode {
   background-color: #000;
   color: #ffffff;
