@@ -33,6 +33,7 @@ const App = () => {
   const [recommendTriggered, setRecommendTriggered] = useState(false);
 
   const [blockNumber, setBlockNumber] = useState('');
+  const [selectedYear, setSelectedYear] = useState(null);
 
   const [trailingZeroes, setTrailingZeroes] = useState(""); // For the number input
   const isUncommonSelected = selectedRarities.includes("uncommon"); // Check if "Uncommon" is selected
@@ -217,6 +218,7 @@ const App = () => {
 
   const handleClearClick = () => {
     setSelectedRarities([]);
+    setSelectedYear(null);
     setApiResults(null);
     setError(null);
   };
@@ -364,6 +366,10 @@ const App = () => {
       apiUrl += `&block=` + blockNumber;
     }
 
+    if (selectedYear) {
+      apiUrl += `&year_mined=${selectedYear}`;
+    }
+
     setLoading(true);
 
     setQueriedRarities([
@@ -431,7 +437,7 @@ const App = () => {
         setLoading(false);
         setApiQueryUrl(apiUrl);
       });
-  }, [selectedRarities, showTopHolders, showTopHoldersFound, isUncommonSelected, trailingZeroes, blockNumber]);
+  }, [selectedRarities, showTopHolders, showTopHoldersFound, isUncommonSelected, trailingZeroes, blockNumber, selectedYear]);
 
   // Monitor state changes and make the API request
   useEffect(() => {
@@ -453,7 +459,7 @@ const App = () => {
       jpeg: "Jpeg Sats originate from what may be the first Bitcoin transaction involving an image, dated February 24, 2010.",
       hitman: "Hitman sats are tied to a controversial transaction allegedly made by Ross Ulbricht, the founder of the Silk Road marketplace, in an attempt to hire a hitman.",
       silkroad: "Silk Road sats were seized from the infamous marketplace and are part of the first Bitcoin auctioned off by the US Marshals on June 27, 2014.",
-      rodarmor: "Rodarmor sats are sats featured in the Ordinal Bounty 3, a challenge rewarding hunters for discovering sat names based on the Google Books Ngram dataset",
+      rodarmor: "Rodarmor Names are sat names featured in the Ordinal Bounty 3, a challenge rewarding hunters for discovering sat names based on the Google Books Ngram dataset",
       legacy: "Legacy Sats are sats distributed in paper wallets during Casey Rodarmor's June 2022 Bitcoin workshop, months before the first Inscription.",
       '450x': "The first Bitcoin from block 9",
     };
@@ -795,6 +801,47 @@ const App = () => {
         {renderCategory("Palindrome", rarities.Palindrome, "#8ECAE6")} {/* Sky Blue */}
         {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
         {renderCategory("Halving epochs", rarities.Epochs, "#FFB703")} {/* Epoch color */}
+
+        <div
+          style={{
+            border: `2px solid #fff`,
+            borderRadius: "10px",
+            margin: "5px",
+            padding: "10px",
+            flex: "1 1 30%", // Adjust for a compact layout
+            minWidth: "200px",
+          }}
+        >
+          <h5
+            style={{
+              color: '#fff',
+              marginBottom: "5px",
+            }}
+          >
+            Year Mined
+          </h5>
+          <div className="d-flex flex-wrap">
+              {[...Array(17)].map((_, index) => {
+                const year = 2009 + index;
+                return (
+                  <div key={year} style={{ marginRight: "10px", display: "flex", alignItems: "center" }}>
+                    <input
+                      type="radio"
+                      id={`year-${year}`}
+                      name="year"
+                      value={year}
+                      checked={selectedYear === year.toString()}
+                      onChange={(e) => setSelectedYear(e.target.value)}
+                    />
+                    <label htmlFor={`year-${year}`} style={{ marginLeft: "5px" }}>
+                      {year}
+                    </label>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+
       </div>
 
       <div className="text-center my-4">
