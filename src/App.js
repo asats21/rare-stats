@@ -378,6 +378,7 @@ const App = () => {
         .filter((item) => !item.startsWith("blocknum_")),      // Remove block number
       ...(isUncommonSelected && trailingZeroes ? [`trailing_0s_${trailingZeroes}`] : []), // Add new trailing_0s if applicable
       ...(blockNumber ? [`blocknum_${blockNumber}`] : []), // Add new block number if applicable
+      ...(selectedYear ? [`mined_${selectedYear}`] : []), // Add mined year if applicable
     ]);
 
     fetch(apiUrl)
@@ -405,6 +406,7 @@ const App = () => {
               ...selectedRarities,
               ...(isUncommonSelected && trailingZeroes ? [`trailing_0s_${trailingZeroes}`] : []), // Add new trailing_0s if applicable
               ...(blockNumber ? [`blocknum_${blockNumber}`] : []), // Add new block number if applicable
+              ...(selectedYear ? [`mined_${selectedYear}`] : []), // Add mined year if applicable
             ].sort(); // Create a sorted copy
 
             const queryData = {
