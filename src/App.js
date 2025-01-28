@@ -80,6 +80,12 @@ const App = () => {
     return storedValue === null ? true : storedValue === "true";
   });
 
+  const [showYearMined, setShowYearMined] = useState(() => {
+    // Retrieve the state from localStorage, default to true if not set
+    const storedValue = localStorage.getItem("showYearMined");
+    return storedValue === null ? true : storedValue === "true";
+  });
+
   const [devModeEnabled, setDevModeEnabled] = useState(
     JSON.parse(localStorage.getItem("devModeEnabled")) || false
   );
@@ -145,6 +151,12 @@ const App = () => {
     const value = event.target.checked;
     setShowTooltips(value);
     localStorage.setItem("showTooltips", JSON.stringify(value));
+  };
+
+  const handleShowYearMinedChange = (event) => {
+    const value = event.target.checked;
+    setShowYearMined(value);
+    localStorage.setItem("showYearMined", JSON.stringify(value));
   };
 
   const handleDevModeEnabledChange = (event) => {
@@ -773,6 +785,15 @@ const App = () => {
                 />
                 Show Tooltips
               </label>
+              <label className="d-flex align-items-center mb-1">
+                <input
+                  type="checkbox"
+                  checked={showYearMined}
+                  onChange={handleShowYearMinedChange}
+                  className="me-2"
+                />
+                Show Year Mined
+              </label>
               <label className="d-flex align-items-center">
                 <input
                   type="checkbox"
@@ -804,45 +825,47 @@ const App = () => {
         {renderCategory("Other", rarities.Other, "#9D4EDD")}      {/* Violet Purple */}
         {renderCategory("Halving epochs", rarities.Epochs, "#FFB703")} {/* Epoch color */}
 
-        <div
-          style={{
-            border: `2px solid #fff`,
-            borderRadius: "10px",
-            margin: "5px",
-            padding: "10px",
-            flex: "1 1 30%", // Adjust for a compact layout
-            minWidth: "200px",
-          }}
-        >
-          <h5
+        {showYearMined &&
+          <div
             style={{
-              color: '#fff',
-              marginBottom: "5px",
+              border: `2px solid #fff`,
+              borderRadius: "10px",
+              margin: "5px",
+              padding: "10px",
+              flex: "1 1 30%", // Adjust for a compact layout
+              minWidth: "200px",
             }}
           >
-            Year Mined
-          </h5>
-          <div className="d-flex flex-wrap">
-              {[...Array(17)].map((_, index) => {
-                const year = 2009 + index;
-                return (
-                  <div key={year} style={{ marginRight: "10px", display: "flex", alignItems: "center" }}>
-                    <input
-                      type="radio"
-                      id={`year-${year}`}
-                      name="year"
-                      value={year}
-                      checked={selectedYear === year.toString()}
-                      onChange={(e) => setSelectedYear(e.target.value)}
-                    />
-                    <label htmlFor={`year-${year}`} style={{ marginLeft: "5px" }}>
-                      {year}
-                    </label>
-                  </div>
-                );
-              })}
+            <h5
+              style={{
+                color: '#fff',
+                marginBottom: "5px",
+              }}
+            >
+              Year mined
+            </h5>
+            <div className="d-flex flex-wrap">
+                {[...Array(17)].map((_, index) => {
+                  const year = 2009 + index;
+                  return (
+                    <div key={year} style={{ marginRight: "10px", display: "flex", alignItems: "center" }}>
+                      <input
+                        type="radio"
+                        id={`year-${year}`}
+                        name="year"
+                        value={year}
+                        checked={selectedYear === year.toString()}
+                        onChange={(e) => setSelectedYear(e.target.value)}
+                      />
+                      <label htmlFor={`year-${year}`} style={{ marginLeft: "5px" }}>
+                        {year}
+                      </label>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
-        </div>
+        }
 
       </div>
 
