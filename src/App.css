@@ -350,3 +350,27 @@ body.dark-mode .trailing-zeroes-input {
   opacity: 1;
   transform: translateX(-50%) translateY(-5px); /* Slight upward motion */
 }
+
+/* Footer Button Style */
+.nav-button-footer {
+  background-color: transparent;
+  padding: 6px 12px; /* Smaller padding */
+  font-size: 0.875rem; /* Smaller font size */
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button-footer.rarity {
+  border-color: #E89A02;
+  color: #E89A02;
+  box-shadow: 0 0 5px #E89A02;
+}
+
+.nav-button-footer.rarity:hover {
+  background-color: #E89A02;
+  color: white;
+  box-shadow: 0 0 10px #E89A02;
+}

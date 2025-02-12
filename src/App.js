@@ -1492,6 +1492,13 @@ const App = () => {
             <span>This is not financial advice. Use the data at your own risk.</span>
           </small>
         </p>
+        
+        <div className="mb-3">
+          <a href="https://asats21.github.io/collectors-vault/#/about" target="_blank" rel="noopener noreferrer" style={{"text-decoration": "none"}}>
+            <button className="nav-button-footer rarity">Collector's Vault</button>
+          </a>
+        </div>
+
       </footer>
     </div>
   );
