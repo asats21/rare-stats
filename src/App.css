@@ -363,10 +363,25 @@ body.dark-mode .trailing-zeroes-input {
   transition: all 0.3s ease;
 }
 
+@keyframes pulseSlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 4px #E89A02;
+  }
+  50% {
+    transform: scale(1.02); /* Slightly enlarge */
+    box-shadow: 0 0 10px #E89A02;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 4px #E89A02;
+  }
+}
+
 .nav-button-footer.rarity {
   border-color: #E89A02;
   color: #E89A02;
-  box-shadow: 0 0 5px #E89A02;
+  animation: pulseSlow 4s infinite ease-in-out;
 }
 
 .nav-button-footer.rarity:hover {

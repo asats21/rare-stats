@@ -1494,8 +1494,8 @@ const App = () => {
         </p>
         
         <div className="mb-3">
-          <a href="https://asats21.github.io/collectors-vault/#/about" target="_blank" rel="noopener noreferrer" style={{"text-decoration": "none"}}>
-            <button className="nav-button-footer rarity">Collector's Vault</button>
+          <a href="https://asats21.github.io/collectors-vault/" target="_blank" rel="noopener noreferrer" style={{"text-decoration": "none"}}>
+            <button style={{border: "2px solid #E89A02"}} className="nav-button-footer rarity">Collector's Vault</button>
           </a>
         </div>
 
