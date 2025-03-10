@@ -389,3 +389,16 @@ body.dark-mode .trailing-zeroes-input {
   color: white;
   box-shadow: 0 0 10px #E89A02;
 }
+
+/* New Rare Sats Lab Button Styles */
+.nav-button-footer.rare-sats-lab {
+  border-color: #06D6A0;
+  color: #06D6A0;
+  box-shadow: 0 0 4px #06D6A0;
+}
+
+.nav-button-footer.rare-sats-lab:hover {
+  background-color: #06D6A0;
+  color: white;
+  box-shadow: 0 0 10px #06D6A0;
+}

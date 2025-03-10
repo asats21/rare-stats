@@ -20,11 +20,18 @@ const Footer = () => {
             <span>This is not financial advice. Use the data at your own risk.</span>
         </small>
         </p>
-        
-        <div className="mb-3">
-        <a href="https://asats21.github.io/collectors-vault/" target="_blank" rel="noopener noreferrer" style={{"textDecoration": "none"}}>
-            <button style={{border: "2px solid #E89A02"}} className="nav-button-footer rarity">Collector's Vault</button>
-        </a>
+
+        <div className="mb-3 d-flex justify-content-center gap-2">
+            <a href="https://asats21.github.io/collectors-vault/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                <button style={{ border: "2px solid #E89A02" }} className="nav-button-footer rarity">
+                Collector's Vault
+                </button>
+            </a>
+            <a href="https://asats21.github.io/rare-sats-lab" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                <button style={{ border: "2px solid #06D6A0" }} className="nav-button-footer rare-sats-lab">
+                Rare Sats Lab
+                </button>
+            </a>
         </div>
 
     </footer>
