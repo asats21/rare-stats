@@ -11,8 +11,8 @@ const Footer = () => {
         </p>
         <p>
         <small style={{
-            'font-size': "0.7rem", 
-            opacity: "0.7;"
+            'fontSize': "0.7rem", 
+            opacity: "0.7"
         }}>
             <strong>Disclaimer:</strong> 
             This page uses data provided by the API at <a href="https://api.deezy.io" target="_blank" rel="noopener noreferrer">https://api.deezy.io</a>. 
@@ -22,7 +22,7 @@ const Footer = () => {
         </p>
         
         <div className="mb-3">
-        <a href="https://asats21.github.io/collectors-vault/" target="_blank" rel="noopener noreferrer" style={{"text-decoration": "none"}}>
+        <a href="https://asats21.github.io/collectors-vault/" target="_blank" rel="noopener noreferrer" style={{"textDecoration": "none"}}>
             <button style={{border: "2px solid #E89A02"}} className="nav-button-footer rarity">Collector's Vault</button>
         </a>
         </div>

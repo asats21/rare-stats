@@ -155,9 +155,9 @@ body.dark-mode .trailing-zeroes-input {
 /* Trailing Zeroes Input Container */
 
 .trailing-zeroes-container {
-  display: flex;
-  align-items: center;
-  margin-top: 10px; /* Space from the checkboxes above */
+  display: block; /* Change from flex to block to force a new line */
+  width: 100%; /* Ensure it takes up the full width of the parent */
+  margin-top: 10px; /* Keep the spacing from the checkboxes above */
 }
 
 .trailing-zeroes-container input {
@@ -166,7 +166,7 @@ body.dark-mode .trailing-zeroes-input {
   max-width: 80px; /* Adjust width as needed */
 }
 
-.trailing-zeroes-input-label  {
+.trailing-zeroes-input-label {
   font-size: 1rem; /* Match the theme font size */
   color: #EF476F; /* Purple color for consistency */
   margin-right: 10px; /* Spacing between label and input */
