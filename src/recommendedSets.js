@@ -1,0 +1,97 @@
+export const recommendedSets = [
+
+    ["uncommon", "2009"],
+    ["uncommon", "jan2009"],
+    ["uncommon", "alpha", "paliblock"],
+    ["uncommon", "alpha", "epoch0"],
+    ["uncommon", "alpha", "epoch1"],
+    ["uncommon", "alpha", "epoch2"],
+    ["uncommon", "alpha", "epoch3"],
+    ["uncommon", "alpha", "epoch4"],
+
+    ["black_uncommon", "2009"],
+    ["black_uncommon", "jan2009"],
+    ["black_uncommon", "omega", "paliblock"],
+
+    ["pizza", "alpha"],
+    ["pizza", "omega"],
+    ["pizza", "uncommon"],
+    ["pizza", "palindrome", "2009"],
+    ["pizza", "palindrome", "sequence_palindrome"],
+    ["pizza", "palindrome", "paliblock"],
+    ["pizza", "palindrome", "uniform_palinception"],
+    ["pizza", "palindrome", "uniform_palinception", "paliblock"],
+
+    ["jpeg", "alpha"],
+    ["jpeg", "omega"],
+    ["jpeg", "uncommon"],
+    ["jpeg", "palindrome"],
+    ["jpeg", "palindrome", "uniform_palinception"],
+
+    ["hitman", "alpha"],
+    ["hitman", "omega"],
+    ["hitman", "palindrome"],
+
+    ["silkroad", "alpha"],
+    ["silkroad", "omega"],
+    ["silkroad", "palindrome"],
+
+    ["nakamoto", "palindrome"],
+    ["nakamoto", "alpha"],
+    ["nakamoto", "omega"],
+
+    ["vintage", "alpha"],
+    ["vintage", "omega"],
+    ["vintage", "palindrome"],
+    ["vintage", "palindrome", "paliblock"],
+    ["vintage", "palindrome", "3_digits"],
+    ["vintage", "palindrome", "2_digits"],
+
+    ["block_78", "alpha"],
+    ["block_78", "omega"],
+    ["block_78", "palindrome"],
+    ["block_78", "palindrome", "2_digits"],
+    ["block_78", "palindrome", "3_digits"],
+    ["block_78", "uniform_palinception"],
+    ["block_78", "perfect_palinception"],
+
+    ["palindrome", "1_digit"],
+    ["palindrome", "2_digits"],
+    ["palindrome", "3_digits"],
+    ["palindrome", "3_digits", "epoch1"],
+    ["palindrome", "3_digits", "epoch2"],
+    ["palindrome", "3_digits", "epoch3"],
+    ["palindrome", "3_digits", "epoch4"],
+
+    ["uniform_palinception"],
+    ["uniform_palinception", "2_digits"],
+    ["uniform_palinception", "3_digits"],
+    ["uniform_palinception", "paliblock", "palindrome"],
+    ["uniform_palinception", "paliblock", "3_digits"],
+    ["uniform_palinception", "paliblock", "2_digits"],
+    ["uniform_palinception", "sequence_palindrome"],
+    ["uniform_palinception", "paliblock", "3_digits", "sequence_palindrome"],
+
+    ["perfect_palinception"],
+    ["perfect_palinception", "paliblock"],
+    ["perfect_palinception", "2_digits"],
+    ["perfect_palinception", "3_digits"],
+    ["perfect_palinception", "paliblock", "3_digits"],
+    ["perfect_palinception", "epoch1"],
+    ["perfect_palinception", "epoch2"],
+    ["perfect_palinception", "epoch3"],
+    ["perfect_palinception", "epoch4"],
+    ["perfect_palinception", "sequence_palindrome"],
+
+    ["450x", "palindrome"],
+    ["block_9", "palindrome"],
+    ["block_9", "alpha"],
+
+    ["block_286", "palindrome"],
+    ["block_286", "alpha"],
+
+    ["rodarmor"],
+    ["rodarmor", "2009"],
+    
+    ["legacy"],
+];
