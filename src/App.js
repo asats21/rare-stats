@@ -732,7 +732,7 @@ const App = () => {
         {showYearMined &&
           <div
             style={{
-              border: `2px solid #fff`,
+              border: darkMode ?  `2px solid #fff` :  `2px solid #aaa`,
               borderRadius: "10px",
               margin: "5px",
               padding: "10px",
@@ -742,7 +742,7 @@ const App = () => {
           >
             <h5
               style={{
-                color: '#fff',
+                color: darkMode ? '#fff' : "#777",
                 marginBottom: "5px",
               }}
             >
