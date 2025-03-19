@@ -570,7 +570,7 @@ const App = () => {
 
   return (
     <div className={`container mt-3 mt-md-4 ${darkMode ? 'dark-mode-container' : ''}`}>
-      {/* Header with "Select Rarities" and Settings Icon */}
+      {/* Header with "Select Categories" and Settings Icon */}
       <div
         className="d-flex justify-content-between align-items-center mb-4"
         style={{ position: "relative" }}
@@ -712,7 +712,7 @@ const App = () => {
         </div>
       </div>
 
-      <h1 className={`text-center mb-4 ${darkMode ? 'text-light' : 'text-dark'}`}>Select Rarities</h1>
+      <h1 className={`text-center mb-4 ${darkMode ? 'text-light' : 'text-dark'}`}>Select Categories</h1>
       <div
         style={{
           display: "flex",
