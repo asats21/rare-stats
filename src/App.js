@@ -5,6 +5,7 @@ import "react-circular-progressbar/dist/styles.css";
 import './App.css'; // Add a CSS file for additional styling
 import { FaCog, FaRegQuestionCircle } from "react-icons/fa"; // Install react-icons if not already installed
 import { recommendedSets } from "./recommendedSets"
+import SettingsDropdown from "./SettingsDropdown"
 import Footer from "./Footer"
 
 const rarities = {
@@ -618,97 +619,29 @@ const App = () => {
           }}
         />
 
-          {/* Settings Dropdown */}
-          {showSettings && (
-            <div
-              className="settings-menu"
-              style={{
-                position: "absolute",
-                top: "30px",
-                right: "0",
-                background: "#333",
-                color: "#fff",
-                border: "1px solid #555",
-                borderRadius: "5px",
-                padding: "10px",
-                zIndex: 10,
-                minWidth: "200px",
-              }}
-            >
-              <label className="d-flex align-items-center mb-1">
-                <input
-                  type="checkbox"
-                  checked={showTopHolders}
-                  onChange={handleShowTopHoldersChange}
-                  className="me-2"
-                />
-                Show Top Holders
-              </label>
-              <label className="d-flex align-items-center mb-1">
-                <input
-                  type="checkbox"
-                  checked={showTopHoldersFound}
-                  onChange={handleShowTopHoldersFoundChange}
-                  className="me-2"
-                />
-                Show Top Holders (Found)
-              </label>
-              <label className="d-flex align-items-center mb-1">
-                <input
-                  type="checkbox"
-                  checked={showSatScoreComponents}
-                  onChange={handleShowSatScoreComponentsChange}
-                  className="me-2"
-                />
-                Show Sat Score Components
-              </label>
-              <label className="d-flex align-items-center mb-1">
-                <input
-                  type="checkbox"
-                  checked={showBlockNumberInput}
-                  onChange={handleShowBlockNumberInputChange}
-                  className="me-2"
-                />
-                Show Block Number Input
-              </label>
-              <label className="d-flex align-items-center mb-1">
-                <input
-                  type="checkbox"
-                  checked={showFeelingLucky}
-                  onChange={handleShowFeelingLuckyChange}
-                  className="me-2"
-                />
-                Show Feeling Lucky
-              </label>
-              <label className="d-flex align-items-center mb-1">
-                <input
-                  type="checkbox"
-                  checked={showTooltips}
-                  onChange={handleShowTooltipsChange}
-                  className="me-2"
-                />
-                Show Tooltips
-              </label>
-              <label className="d-flex align-items-center mb-1">
-                <input
-                  type="checkbox"
-                  checked={showYearMined}
-                  onChange={handleShowYearMinedChange}
-                  className="me-2"
-                />
-                Show Year Mined
-              </label>
-              <label className="d-flex align-items-center">
-                <input
-                  type="checkbox"
-                  checked={devModeEnabled}
-                  onChange={handleDevModeEnabledChange}
-                  className="me-2"
-                />
-                Enable Dev Mode
-              </label>
-            </div>
-          )}
+          <SettingsDropdown 
+            showSettings={showSettings}
+            settings={{
+              showTopHolders,
+              showTopHoldersFound,
+              showSatScoreComponents,
+              showBlockNumberInput,
+              showFeelingLucky,
+              showTooltips,
+              showYearMined,
+              devModeEnabled
+            }}
+            handlers={{
+              showTopHolders: handleShowTopHoldersChange,
+              showTopHoldersFound: handleShowTopHoldersFoundChange,
+              showSatScoreComponents: handleShowSatScoreComponentsChange,
+              showBlockNumberInput: handleShowBlockNumberInputChange,
+              showFeelingLucky: handleShowFeelingLuckyChange,
+              showTooltips: handleShowTooltipsChange,
+              showYearMined: handleShowYearMinedChange,
+              devModeEnabled: handleDevModeEnabledChange
+            }}
+          />
         </div>
       </div>
 
