@@ -208,6 +208,7 @@ const App = () => {
   const handleClearClick = () => {
     setSelectedRarities([]);
     setSelectedYear(null);
+    setBlockNumber('');
     setApiResults(null);
     setError(null);
   };
