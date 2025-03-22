@@ -661,12 +661,15 @@ const App = () => {
                   return (
                     <div key={year} style={{ marginRight: "10px", display: "flex", alignItems: "center" }}>
                       <input
-                        type="radio"
+                        type="checkbox"
                         id={`year-${year}`}
                         name="year"
                         value={year}
                         checked={selectedYear === year.toString()}
-                        onChange={(e) => setSelectedYear(e.target.value)}
+                        onChange={(e) => {
+                          const value = e.target.checked ? e.target.value : null;
+                          setSelectedYear(value);
+                        }}
                       />
                       <label htmlFor={`year-${year}`} style={{ marginLeft: "5px" }}>
                         {year}
