@@ -1,5 +1,20 @@
 import React from "react";
 
+const SETTINGS_LABELS = {
+  showTopHolders: "Show Top Holders",
+  showTopHoldersFound: "Show Top Holders (Found)",
+  showSatScoreComponents: "Show Sat Score Components",
+  showBlockNumberInput: "Show Block Number Input",
+  showFeelingLucky: "Show Feeling Lucky",
+  showTooltips: "Show Tooltips",
+  showYearMined: "Show Year Mined",
+  devModeEnabled: "Enable Dev Mode"
+};
+
+const formatSettingLabel = (key) => {
+  return SETTINGS_LABELS[key] || key.replace(/([A-Z])/g, ' $1').trim();
+};
+
 const SettingsDropdown = ({
   showSettings,
   settings,
@@ -31,7 +46,7 @@ const SettingsDropdown = ({
             onChange={handlers[key]}
             className="me-2"
           />
-          {key.replace(/([A-Z])/g, ' $1').trim()}
+          {formatSettingLabel(key)}
         </label>
       ))}
     </div>
